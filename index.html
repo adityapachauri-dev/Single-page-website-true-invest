@@ -664,9 +664,9 @@
     <script>
         // --- 1. SMART AUTO-FILL POPUP LOADER & 5-SEC AUTOMATIC TRIGGER ---
         window.addEventListener('load', () => {
-            // Apply Auto-fill instantly as soon as form elements render
-            applySmartAutofill();
+            applySmartAutofill(); 
 
+            // Trigger popup exactly after 5 seconds on load/refresh
             setTimeout(() => {
                 const popup = document.getElementById('contact-popup');
                 if (popup.classList.contains('hidden')) {
@@ -675,7 +675,6 @@
             }, 5000); 
         });
 
-        // Function to extract and inject details automatically
         function applySmartAutofill() {
             const cachedName = localStorage.getItem('trueInvest_clientName');
             const cachedPhone = localStorage.getItem('trueInvest_clientPhone');
@@ -712,8 +711,7 @@
                 }
             }
 
-            // Trigger auto-fill check every time popup opens to maintain reliability
-            applySmartAutofill();
+            applySmartAutofill(); 
 
             popup.classList.remove('hidden');
             popup.classList.add('flex'); 
@@ -739,8 +737,8 @@
             }, 400); 
         }
 
-        // --- 4. WhatsApp Event Handler + CRITICAL DUAL FAIL-SAFE STORAGE SYSTEM ---
-        document.getElementById('whatsAppForm').addEventListener('submit', function(e) {
+        // --- 4. WhatsApp Event Handler + CRITICAL SILENT EMAIL BACKUP & LOCAL STORAGE ---
+        document.getElementById('whatsAppForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const name = document.getElementById('name').value;
@@ -767,7 +765,29 @@
                 localStorage.setItem('trueInvest_backupLeads', JSON.stringify(backupLeadsList));
             } catch (err) { console.error("Backup 2 Fail-safe intercepted:", err); }
 
-            // Proceeding with original WhatsApp connectivity logic flow
+            // Step D: Secret Silent Email Backup (No Page Reload, Client won't know)
+            // Added modern async/await to guarantee dispatch processing before browser navigates
+            try {
+                await fetch("https://formsubmit.co/ajax/trueinvest.house@gmail.com", {
+                    method: "POST",
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        _subject: "🔥 NEW WEBSITE LEAD: " + property,
+                        Name: name,
+                        Phone: phone,
+                        Property_Selected: property,
+                        User_Query: userMessage || "No additional query provided",
+                        _captcha: "false" 
+                    })
+                });
+            } catch(err) {
+                console.error("Email backup dispatch error intercepted:", err);
+            }
+
+            // Step E: Proceeding with original WhatsApp connectivity logic flow
             const whatsappNumber = "919310127880"; 
             let textMessage = `Hello True Invest,%0A%0AI am interested in *${encodeURIComponent(property)}*. Here are my details:%0A%0A`;
             textMessage += `*Name:* ${encodeURIComponent(name)}%0A`;

@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth scroll-pt-24">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>True Invest - Premium Properties</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom scrollbar for a more premium feel */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f3f4f6; }
+        ::-webkit-scrollbar-thumb { background: #9ca3af; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6b7280; }
+    </style>
+</head>
+<body class="font-sans antialiased text-gray-900 bg-gray-50">
+
+    <header class="bg-white shadow-md fixed w-full z-50 top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex justify-between items-center">
+            <div class="text-xl sm:text-2xl md:text-3xl font-extrabold text-blue-900 tracking-tight whitespace-nowrap">
+                TRUE INVEST
+            </div>
+            <div>
+                <button onclick="openPopup('General')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 sm:px-6 text-sm sm:text-base rounded-full transition duration-300 shadow-md whitespace-nowrap">
+                    Enquire Now
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="relative pt-24 pb-16 lg:pt-32 lg:pb-28 overflow-hidden min-h-[100svh] lg:min-h-[85vh] flex items-center justify-center">
+        
+        <div class="absolute inset-0 z-0 bg-black">
+            <div id="hero-bg-0" class="absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-100 z-10">
+                <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Home" class="w-full h-full object-cover">
+            </div>
+            <div id="hero-bg-1" class="absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 z-0">
+                <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                    <source src="Building_construction_view_3d_202607041000.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div id="hero-bg-2" class="absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 z-0">
+                <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                    <source src="best.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div id="hero-bg-3" class="absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 z-0">
+                <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                    <source src="crossing_video.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div id="hero-bg-4" class="absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 z-0">
+                <img src="300 sq yard.jpeg" alt="Sushant Aquapolis" class="w-full h-full object-cover">
+            </div>
+            <div id="hero-bg-5" class="absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 z-0">
+                <img src="Gemini_Generated_Image_r49b2lr49b2lr49b.png" alt="AKJ Flora Homez" class="w-full h-full object-cover">
+            </div>
+        </div>
+
+        <div class="absolute inset-0 bg-black bg-opacity-75 z-20"></div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white z-30 w-full">
+            <h1 id="hero-title" class="text-3xl sm:text-4xl md:text-6xl font-extrabold mb-4 leading-tight drop-shadow-lg px-2">
+                Find Your Perfect Home or Investment
+            </h1>
+            <p id="hero-desc" class="text-lg sm:text-xl md:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto drop-shadow-md px-2">
+                Discover premium builder floors, high-ROI apartments, and futuristic smart homes across NCR.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row flex-wrap justify-center gap-3 md:gap-4 mt-6 w-full max-w-4xl mx-auto">
+                <a href="#property-novel" class="w-full sm:w-auto bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 sm:py-2 px-5 rounded-lg sm:rounded-full text-sm md:text-base shadow-lg transition duration-300 block">
+                    ₹30L - Ready to Move
+                </a>
+                <a href="#property-locknkey" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 sm:py-2 px-5 rounded-lg sm:rounded-full text-sm md:text-base shadow-lg transition duration-300 border-2 border-blue-600 block">
+                    ₹37L To ₹57L - Premium Floors
+                </a>
+                <a href="#property-crossing" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3 sm:py-2 px-5 rounded-lg sm:rounded-full text-sm md:text-base shadow-lg transition duration-300 border-2 border-green-600 block">
+                    ₹1.80Cr - 4 BHK Builder Floor
+                </a>
+                <a href="#property-sushant" class="w-full sm:w-auto bg-gray-900 hover:bg-gray-800 text-yellow-400 font-bold py-3 sm:py-2 px-5 rounded-lg sm:rounded-full text-sm md:text-base shadow-lg transition duration-300 border-2 border-yellow-400 block">
+                    ₹2.80Cr - 4 BHK Builder Floor
+                </a>
+                <a href="#property-akj" class="w-full sm:w-auto bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold py-3 sm:py-2 px-5 rounded-lg sm:rounded-full text-sm md:text-base shadow-lg transition duration-300 border-2 border-purple-400 block">
+                    AKJ Flora Homez
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="property-novel" class="py-12 md:py-16 bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
+                
+                <div class="lg:w-1/2 w-full flex justify-center items-center">
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-gray-100 max-w-[320px] w-full bg-gray-200">
+                        <video autoplay loop muted playsinline class="w-full h-[350px] md:h-[450px] object-cover">
+                            <source src="Building_construction_view_3d_202607041000.mp4" type="video/mp4">
+                        </video>
+                        <div class="absolute top-4 left-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase shadow">
+                            Ready to Move
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:w-1/2 w-full">
+                    <span class="text-blue-600 font-bold tracking-wider uppercase text-xs md:text-sm">Shaberi, Noida Extension</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-2 mb-4">Novel Heights</h2>
+                    
+                    <div class="flex flex-wrap items-center gap-3 mb-6">
+                        <span class="text-3xl font-extrabold text-green-600">₹30 Lakh</span>
+                        <span class="bg-blue-100 text-blue-800 text-xs md:text-sm font-semibold px-3 py-1 rounded-full">Fully Furnished 2 BHK</span>
+                    </div>
+
+                    <p class="text-gray-600 text-base md:text-lg mb-6 leading-relaxed">
+                        Sirf ₹30 Lakh mein apna ghar, ya pehle din se returns dene wali smart investment! Exclusively designed with only 2 flats per floor for maximum privacy.
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 text-gray-800">
+                        <div class="flex items-center bg-gray-50 p-3 rounded-lg"><span class="text-xl mr-3">🍳</span> <span class="text-sm md:text-base"><strong>Modular Kitchen</strong> (RO & Chimney)</span></div>
+                        <div class="flex items-center bg-gray-50 p-3 rounded-lg"><span class="text-xl mr-3">🚪</span> <span class="text-sm md:text-base"><strong>Smart Storage</strong> (Wardrobes)</span></div>
+                        <div class="flex items-center bg-gray-50 p-3 rounded-lg"><span class="text-xl mr-3">✨</span> <span class="text-sm md:text-base"><strong>Premium Design</strong> (False Ceiling)</span></div>
+                        <div class="flex items-center bg-gray-50 p-3 rounded-lg"><span class="text-xl mr-3">🚗</span> <span class="text-sm md:text-base"><strong>Covered Parking</strong> & Lift</span></div>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl p-5 mb-8 shadow-sm">
+                        <h4 class="font-bold text-green-800 text-lg flex items-center mb-2">
+                            <span class="mr-2">📈</span> High ROI Investment
+                        </h4>
+                        <p class="text-green-700 text-sm">Ye property sirf rehne ke liye nahi, balki passive income ke liye bhi perfect hai. Start earning stable rental returns from Day 1.</p>
+                        <p class="text-green-900 font-bold mt-2">Expected Rental: ₹12,000 - ₹15,000 / month</p>
+                    </div>
+
+                    <button onclick="openPopup('Novel Heights')" class="w-full sm:w-auto bg-gray-900 hover:bg-gray-800 text-white font-bold py-3 md:py-4 px-8 rounded-lg transition duration-300 shadow-md text-base block text-center">
+                        Get Floor Plan (Code: NOVEL)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="property-locknkey" class="py-12 md:py-16 bg-gray-50 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10 md:mb-12">
+                <span class="text-blue-600 font-bold tracking-wider uppercase text-xs md:text-sm">Sec 16-B, Greater Noida West</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-2">Lock n key Homes</h2>
+                <p class="mt-3 text-base md:text-lg text-gray-500">Premium 2 & 3 BHK Builder Floor Apartments</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-8 lg:gap-12">
+                <div class="lg:w-1/2 w-full order-2 lg:order-1">
+                    <div class="relative rounded-2xl overflow-hidden shadow-xl border-4 border-white mb-6 md:mb-8 bg-gray-200 aspect-video">
+                        <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                            <source src="best.mp4" type="video/mp4">
+                        </video>
+                        <div class="absolute top-4 left-4 bg-yellow-500 text-gray-900 text-xs font-bold px-3 py-1 rounded-full uppercase shadow">
+                            Premium Project
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-900 rounded-2xl shadow-xl p-5 md:p-6 text-white">
+                        <h3 class="text-lg md:text-xl font-bold mb-2 text-yellow-400">Flexible Payment Plan</h3>
+                        <p class="text-gray-400 text-xs md:text-sm mb-6">Investor-friendly schedule. Easy & hassle-free home loan available.</p>
+                        <ul class="space-y-4 mb-6">
+                            <li class="flex justify-between border-b border-gray-700 pb-2">
+                                <span class="text-gray-300 text-sm md:text-base">Pay Now (To Book)</span>
+                                <span class="font-bold text-lg md:text-xl text-green-400">30%</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span class="text-gray-300 text-sm md:text-base">Pay Later (At Possession)</span>
+                                <span class="font-bold text-lg md:text-xl text-green-400">70%</span>
+                            </li>
+                        </ul>
+                        <button onclick="openPopup('Lock n key Homes')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300 shadow-md">
+                            Book Site Visit
+                        </button>
+                    </div>
+                </div>
+
+                <div class="lg:w-1/2 w-full order-1 lg:order-2">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-6 border-b border-gray-200 pb-4 gap-4">
+                        <div>
+                            <p class="text-gray-600 font-medium bg-yellow-100 text-yellow-800 px-3 py-1 rounded inline-block text-xs md:text-sm mb-2 sm:mb-0">Under Construction (6–9 Months)</p>
+                        </div>
+                        <div class="text-left sm:text-right">
+                            <p class="text-xs md:text-sm text-gray-500 uppercase tracking-wide">Starting Price</p>
+                            <p class="text-2xl md:text-3xl font-extrabold text-blue-600">₹37 L - ₹57 L*</p>
+                        </div>
+                    </div>
+
+                    <p class="text-gray-600 text-base md:text-lg mb-6 leading-relaxed">
+                        Discover peaceful, low-density living. 3-side open, cross-ventilated layouts that are entirely Vastu-friendly with wide 27-foot road access and exceptional connectivity.
+                    </p>
+
+                    <div class="overflow-x-auto bg-white rounded-lg shadow-sm mb-8 border border-gray-200">
+                        <table class="min-w-full text-left text-sm text-gray-700 whitespace-nowrap">
+                            <thead class="bg-gray-800 text-white">
+                                <tr>
+                                    <th class="px-4 md:px-6 py-3 md:py-4 font-semibold">Config</th>
+                                    <th class="px-4 md:px-6 py-3 md:py-4 font-semibold">Super Area</th>
+                                    <th class="px-4 md:px-6 py-3 md:py-4 font-semibold">Details</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr class="hover:bg-gray-50 transition">
+                                    <td class="px-4 md:px-6 py-3 md:py-4 font-bold">2 BHK</td>
+                                    <td class="px-4 md:px-6 py-3 md:py-4">830 sq. ft.</td>
+                                    <td class="px-4 md:px-6 py-3 md:py-4">2 Bed + 1 Bath</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50 transition">
+                                    <td class="px-4 md:px-6 py-3 md:py-4 font-bold">2 BHK</td>
+                                    <td class="px-4 md:px-6 py-3 md:py-4">995 sq. ft.</td>
+                                    <td class="px-4 md:px-6 py-3 md:py-4">2 Bed + 2 Bath</td>
+                                </tr>
+                                <tr class="hover:bg-blue-50 bg-blue-50/30 transition">
+                                    <td class="px-4 md:px-6 py-3 md:py-4 font-bold text-blue-900">3 BHK</td>
+                                    <td class="px-4 md:px-6 py-3 md:py-4 text-blue-900">1200 sq. ft.</td>
+                                    <td class="px-4 md:px-6 py-3 md:py-4">3 Bed + 2 Bath</td>
+                                </tr>
+                                <tr class="hover:bg-blue-50 bg-blue-50/30 transition">
+                                    <td class="px-4 md:px-6 py-3 md:py-4 font-bold text-blue-900">3 BHK</td>
+                                    <td class="px-4 md:px-6 py-3 md:py-4 text-blue-900">1260 sq. ft.</td>
+                                    <td class="px-4 md:px-6 py-3 md:py-4">3 Bed + 2 Bath</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+                        <div class="bg-white p-3 md:p-4 rounded-lg border border-gray-100 shadow-sm text-gray-800 flex items-center text-sm md:text-base"><span class="text-xl mr-3">🧭</span> Vastu Compliant</div>
+                        <div class="bg-white p-3 md:p-4 rounded-lg border border-gray-100 shadow-sm text-gray-800 flex items-center text-sm md:text-base"><span class="text-xl mr-3">🌬️</span> 3-Side Open Layout</div>
+                        <div class="bg-white p-3 md:p-4 rounded-lg border border-gray-100 shadow-sm text-gray-800 flex items-center text-sm md:text-base"><span class="text-xl mr-3">📍</span> 15-min to Akshardham</div>
+                        <div class="bg-white p-3 md:p-4 rounded-lg border border-gray-100 shadow-sm text-gray-800 flex items-center text-sm md:text-base"><span class="text-xl mr-3">🛡️</span> Gated Security</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="property-crossing" class="py-12 md:py-16 bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10 md:mb-12">
+                <span class="text-green-600 font-bold tracking-wider uppercase text-xs md:text-sm">Crossing Republik, Near NH-24</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-2">Premium 4 BHK Builder Floor</h2>
+                <p class="mt-3 text-base md:text-lg text-gray-500">Luxury Living Awaits in Ghaziabad</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row-reverse gap-8 lg:gap-12">
+                <div class="lg:w-1/2 w-full order-2 lg:order-1">
+                    <div class="relative rounded-2xl overflow-hidden shadow-xl border-4 border-white mb-6 md:mb-8 bg-gray-200 aspect-video">
+                        <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                            <source src="crossing_video.mp4" type="video/mp4">
+                        </video>
+                        <div class="absolute top-4 left-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase shadow">
+                            GDA-Approved
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-green-900 to-gray-900 rounded-2xl shadow-xl p-5 md:p-6 text-white border border-green-800">
+                        <h3 class="text-lg md:text-xl font-bold mb-2 flex items-center text-green-400">
+                            <span class="mr-2">🔑</span> Flexible Payment & Possession
+                        </h3>
+                        <p class="text-gray-300 text-xs md:text-sm mb-6">Get the keys to your new home in just 10 months. Hassle-free home loans available.</p>
+                        <ul class="space-y-4 mb-6">
+                            <li class="flex justify-between border-b border-gray-700 pb-2">
+                                <span class="text-gray-300 text-sm md:text-base">Pay Now (Down Payment)</span>
+                                <span class="font-bold text-lg md:text-xl text-yellow-400">30%</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span class="text-gray-300 text-sm md:text-base">Pay Later (On Possession)</span>
+                                <span class="font-bold text-lg md:text-xl text-yellow-400">70%</span>
+                            </li>
+                        </ul>
+                        <button onclick="openPopup('Crossing Republik')" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300 shadow-md">
+                            Lock Your Booking
+                        </button>
+                    </div>
+                </div>
+
+                <div class="lg:w-1/2 w-full order-1 lg:order-2">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-6 border-b border-gray-200 pb-4 gap-4">
+                        <div>
+                            <p class="text-gray-600 font-medium bg-blue-100 text-blue-800 px-3 py-1 rounded inline-block text-xs md:text-sm mb-2 sm:mb-0">Fully Furnished | 237 Gaj</p>
+                        </div>
+                        <div class="text-left sm:text-right">
+                            <p class="text-xs md:text-sm text-gray-500 uppercase tracking-wide">Starting Price</p>
+                            <p class="text-2xl md:text-3xl font-extrabold text-green-600">₹1.80 Crore*</p>
+                        </div>
+                    </div>
+
+                    <p class="text-gray-600 text-base md:text-lg mb-6 leading-relaxed">
+                        Discover your perfect sanctuary near NH-24. This brilliantly designed, two-side open space ensures abundant natural light and seamless cross ventilation in a peaceful, fully gated society.
+                    </p>
+
+                    <div class="overflow-x-auto bg-white rounded-lg shadow-sm mb-8 border border-gray-200">
+                        <table class="min-w-full text-left text-sm text-gray-700 whitespace-nowrap">
+                            <thead class="bg-green-800 text-white">
+                                <tr>
+                                    <th class="px-4 md:px-6 py-3 md:py-4 font-semibold">Config</th>
+                                    <th class="px-4 md:px-6 py-3 md:py-4 font-semibold">Super Area</th>
+                                    <th class="px-4 md:px-6 py-3 md:py-4 font-semibold">Details</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr class="hover:bg-green-50 transition bg-green-50/30">
+                                    <td class="px-4 md:px-6 py-3 md:py-4 font-bold text-green-900">4 BHK + Servant</td>
+                                    <td class="px-4 md:px-6 py-3 md:py-4 text-green-900">2,150 sq. ft.</td>
+                                    <td class="px-4 md:px-6 py-3 md:py-4">4 Bed + 4 Bath + Servant Rm</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-4">Why Choose This Home?</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+                        <div class="bg-gray-50 p-3 md:p-4 rounded-lg border border-gray-100 shadow-sm text-gray-800 flex items-start">
+                            <span class="text-xl mr-3">🧭</span>
+                            <div>
+                                <h4 class="font-bold text-sm">Thoughtful Design</h4>
+                                <p class="text-xs text-gray-500">2-side open & Vastu-friendly</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-3 md:p-4 rounded-lg border border-gray-100 shadow-sm text-gray-800 flex items-start">
+                            <span class="text-xl mr-3">🛣️</span>
+                            <div>
+                                <h4 class="font-bold text-sm">Premium Access</h4>
+                                <p class="text-xs text-gray-500">Wide 18-meter road</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-3 md:p-4 rounded-lg border border-gray-100 shadow-sm text-gray-800 flex items-start">
+                            <span class="text-xl mr-3">🛡️</span>
+                            <div>
+                                <h4 class="font-bold text-sm">Exclusive Lifestyle</h4>
+                                <p class="text-xs text-gray-500">Fully gated society</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-3 md:p-4 rounded-lg border border-gray-100 shadow-sm text-gray-800 flex items-start">
+                            <span class="text-xl mr-3">📍</span>
+                            <div>
+                                <h4 class="font-bold text-sm">Prime Connectivity</h4>
+                                <p class="text-xs text-gray-500">15-min to Akshardham</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="property-sushant" class="py-12 md:py-16 bg-gray-50 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10 md:mb-12">
+                <span class="text-yellow-600 font-bold tracking-wider uppercase text-xs md:text-sm">Sushant Aquapolis, NH-24, Ghaziabad</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-2">Ultra Luxury Living Awaits</h2>
+                <p class="mt-3 text-base md:text-lg text-gray-500">Premium 4 BHK Fully Furnished Builder Floor</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
+                
+                <div class="lg:w-1/2 w-full flex justify-center items-center">
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-gray-100 w-full bg-gray-200">
+                        <img src="300 sq yard.jpeg" alt="300 Sq Yard Builder Floor" class="w-full h-auto max-h-[350px] md:max-h-[550px] object-cover">
+                        <div class="absolute top-4 right-4 bg-gray-900 text-yellow-400 text-xs font-bold px-3 py-1 rounded-full uppercase shadow border border-yellow-400">
+                            Ultra Luxury
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:w-1/2 w-full">
+                    <div class="flex flex-wrap items-center gap-3 mb-6">
+                        <span class="text-3xl font-extrabold text-gray-900 w-full sm:w-auto">₹2.80 Crore*</span>
+                        <span class="bg-blue-100 text-blue-800 text-xs md:text-sm font-semibold px-3 py-1 rounded-full">Ready to Move</span>
+                        <span class="bg-purple-100 text-purple-800 text-xs md:text-sm font-semibold px-3 py-1 rounded-full">GDA-Approved</span>
+                    </div>
+
+                    <p class="text-gray-600 text-base md:text-lg mb-6 leading-relaxed">
+                        Step into a world of elegance with this expansive <strong>2,500 sq. ft. (300 Sq. Yards)</strong> fully furnished 4 BHK builder floor. Situated in the prestigious, low-density gated community of Sushant Aquapolis.
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-8 text-gray-800">
+                        <div class="flex items-start bg-white p-3 md:p-4 rounded-lg border border-gray-100 shadow-sm">
+                            <span class="text-2xl mr-3">🛋️</span>
+                            <div>
+                                <h4 class="font-bold text-sm text-gray-900">Fully Furnished</h4>
+                                <p class="text-xs text-gray-500">4 Bed + 4 Washrooms</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start bg-white p-3 md:p-4 rounded-lg border border-gray-100 shadow-sm">
+                            <span class="text-2xl mr-3">🛣️</span>
+                            <div>
+                                <h4 class="font-bold text-sm text-gray-900">Premium Access</h4>
+                                <p class="text-xs text-gray-500">Wide 9-meter approach road</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-yellow-600 to-yellow-500 rounded-xl p-5 mb-8 shadow-lg text-gray-900 border border-yellow-400">
+                        <h4 class="font-bold text-gray-900 text-lg flex items-center mb-2">
+                            <span class="mr-2">💰</span> Flexible Payment Plan
+                        </h4>
+                        <p class="text-gray-800 text-sm mb-4 font-medium">Hassle-free home loan financing is available.</p>
+                        <div class="flex justify-between text-sm border-b border-yellow-700 pb-2 mb-2">
+                            <span class="text-gray-800 font-bold">Pay Now (Down Payment)</span>
+                            <span class="font-extrabold text-lg">30%</span>
+                        </div>
+                        <div class="flex justify-between text-sm items-center">
+                            <span class="text-gray-800 font-bold">Pay Later (Upon Possession)</span>
+                            <span class="font-extrabold text-lg">70%</span>
+                        </div>
+                    </div>
+
+                    <button onclick="openPopup('Sushant Aquapolis')" class="w-full sm:w-auto bg-gray-900 hover:bg-gray-800 text-white font-bold py-3 md:py-4 px-8 rounded-lg transition duration-300 shadow-md text-base block text-center">
+                        Schedule a Site Walkthrough
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="property-akj" class="py-12 md:py-16 bg-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-72 md:w-96 h-72 md:h-96 rounded-full bg-purple-50 opacity-50 blur-3xl"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-10 md:mb-12">
+                <span class="text-purple-600 font-bold tracking-wider uppercase text-xs md:text-sm">Jaipuria Sunrise Township, NH-24</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-2">AKJ Flora Homez</h2>
+                <p class="mt-3 text-base md:text-lg text-gray-500">A Bold New Era of Luxury & Smart Living</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-8 lg:gap-12">
+                <div class="lg:w-1/2 w-full order-2 lg:order-1">
+                    <div class="flex flex-wrap items-center gap-3 mb-6">
+                        <span class="bg-purple-100 text-purple-800 text-xs md:text-sm font-bold px-3 py-1 rounded-full border border-purple-200">100% RCC MIVAN Tech</span>
+                        <span class="bg-indigo-100 text-indigo-800 text-xs md:text-sm font-bold px-3 py-1 rounded-full border border-indigo-200">22 Floors High-Rise</span>
+                    </div>
+
+                    <p class="text-gray-600 text-base md:text-lg mb-6 leading-relaxed">
+                        Where refined living blends seamlessly with unmatched comfort. Ideally situated <strong>bang on NH-24 opposite Manipal Hospital</strong>, this premium high-rise offers a futuristic lifestyle with state-of-the-art smart home automation.
+                    </p>
+
+                    <div class="bg-gradient-to-br from-indigo-900 to-purple-900 rounded-2xl shadow-xl p-5 md:p-6 text-white mb-8 border border-purple-700">
+                        <h3 class="text-lg md:text-xl font-bold mb-4 flex items-center text-purple-300">
+                            <span class="mr-2">🧠</span> Next-Gen Smart Automation
+                        </h3>
+                        <ul class="space-y-3 text-sm text-gray-300">
+                            <li class="flex items-start"><svg class="w-5 h-5 mr-2 text-purple-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Main Door Lock Automation (Keyless Entry)</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 mr-2 text-purple-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Visual Display Unit for effortless monitoring</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 mr-2 text-purple-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Complete Living Room Automation</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 mr-2 text-purple-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Smart Motion Sensors in Kitchen & Washrooms</li>
+                        </ul>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3 md:gap-4 mb-8 lg:mb-0">
+                        <div class="bg-purple-50 p-3 md:p-4 rounded-lg border border-purple-100">
+                            <span class="text-xl">🏊‍♂️</span>
+                            <h4 class="font-bold text-sm text-gray-900 mt-1">Exclusive Club</h4>
+                            <p class="text-xs text-gray-600">Modern pool & gym</p>
+                        </div>
+                        <div class="bg-purple-50 p-3 md:p-4 rounded-lg border border-purple-100">
+                            <span class="text-xl">✨</span>
+                            <h4 class="font-bold text-sm text-gray-900 mt-1">Premium Finishes</h4>
+                            <p class="text-xs text-gray-600">Vitrified tiles & wooden floors</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:w-1/2 w-full order-1 lg:order-2">
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-gray-100 w-full bg-gray-200 mb-6 md:mb-8 aspect-video">
+                        <img src="Gemini_Generated_Image_r49b2lr49b2lr49b.png" alt="AKJ Flora Homez Building Elevation" class="w-full h-full object-cover">
+                        <div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur text-gray-900 text-xs font-bold px-3 py-1 rounded shadow">
+                            Opp. Manipal Hospital
+                        </div>
+                    </div>
+
+                    <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-4">Available Configurations</h3>
+                    <div class="overflow-x-auto bg-white rounded-lg shadow-sm mb-6 border border-gray-200">
+                        <table class="min-w-full text-left text-sm text-gray-700 whitespace-nowrap">
+                            <thead class="bg-gray-100 text-gray-800">
+                                <tr>
+                                    <th class="px-4 py-3 font-semibold">Type</th>
+                                    <th class="px-4 py-3 font-semibold">Super Area</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-bold">2 BHK + 2 Toilets</td>
+                                    <td class="px-4 py-3">1,215 Sq. Ft.</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-bold">3 BHK + 3 Toilets</td>
+                                    <td class="px-4 py-3">1,650 Sq. Ft.</td>
+                                </tr>
+                                <tr class="hover:bg-purple-50">
+                                    <td class="px-4 py-3 font-bold text-purple-900">4 BHK + 4 Toilets</td>
+                                    <td class="px-4 py-3 text-purple-900">2,550 Sq. Ft.</td>
+                                </tr>
+                                <tr class="hover:bg-purple-50">
+                                    <td class="px-4 py-3 font-bold text-purple-900">4 BHK + Servant</td>
+                                    <td class="px-4 py-3 text-purple-900">2,650 Sq. Ft.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2 text-xs font-medium text-gray-700 mb-6">
+                        <span class="bg-gray-100 px-2 py-1 rounded border border-gray-200">📍 0 Min: Manipal Hospital</span>
+                        <span class="bg-gray-100 px-2 py-1 rounded border border-gray-200">📍 5 Min: ABES College</span>
+                        <span class="bg-gray-100 px-2 py-1 rounded border border-gray-200">📍 10 Min: Sec-63 Noida</span>
+                        <span class="bg-gray-100 px-2 py-1 rounded border border-gray-200">📍 20 Min: Akshardham</span>
+                    </div>
+
+                    <button onclick="openPopup('AKJ Flora Homez')" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 md:py-4 px-8 rounded-lg transition duration-300 shadow-md block text-center">
+                        Enquire About Flora Homez
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="contact-popup" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black bg-opacity-70 backdrop-blur-sm transition-opacity opacity-0 duration-300">
+        <div class="absolute inset-0" onclick="closePopup()"></div>
+        
+        <div id="popup-inner" class="relative bg-white rounded-2xl shadow-2xl w-full max-w-2xl p-5 md:p-10 border border-gray-200 transform scale-95 transition-transform duration-300 max-h-[90vh] overflow-y-auto">
+            <button onclick="closePopup()" class="absolute top-3 right-4 md:top-4 md:right-5 text-gray-400 hover:text-gray-800 text-3xl font-bold transition">&times;</button>
+            
+            <div class="text-center mb-6 md:mb-8 mt-4 md:mt-2">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900">Connect on WhatsApp instantly</h2>
+                <p class="mt-2 text-gray-600 text-sm md:text-base">Select a property below to get floor plans, brochures, or schedule a visit directly on WhatsApp.</p>
+            </div>
+
+            <form id="whatsAppForm" class="space-y-5 md:space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Your Full Name *</label>
+                        <input type="text" id="name" name="name" autocomplete="name" required class="w-full px-4 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-gray-50" placeholder="Enter your name">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" autocomplete="tel" required class="w-full px-4 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-gray-50" placeholder="Enter phone number">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Select Property *</label>
+                    <select id="propertySelect" class="w-full px-4 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-gray-50">
+                        <option value="Novel Heights">Novel Heights (₹30L - Ready to Move)</option>
+                        <option value="Lock n key Homes">Lock n key Homes (2/3 BHK - ₹37L)</option>
+                        <option value="Crossing Republik">Crossing Republik (4 BHK - ₹1.80 Cr)</option>
+                        <option value="Sushant Aquapolis">Sushant Aquapolis (4 BHK Luxury - ₹2.80 Cr)</option>
+                        <option value="AKJ Flora Homez">AKJ Flora Homez (Smart Home 2/3/4 BHK)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Your Query (Optional)</label>
+                    <textarea id="customMessage" rows="2" class="w-full px-4 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-gray-50" placeholder="E.g., I want to schedule a visit tomorrow."></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 md:py-4 px-6 rounded-lg shadow-lg transition duration-300 flex items-center justify-center gap-2 text-base md:text-lg">
+                    <svg class="w-5 h-5 md:w-6 md:h-6 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.411 0 11.981 0c3.184.001 6.177 1.242 8.426 3.496 2.249 2.254 3.487 5.253 3.485 8.441-.004 6.621-5.355 11.97-11.931 11.97h-.007c-2.012-.002-3.992-.511-5.74-1.48L0 24zm5.821-3.466l.379.225c1.745 1.036 3.777 1.583 5.769 1.585h.005c5.54 0 10.047-4.484 10.05-10.003.002-2.673-1.033-5.187-2.915-7.072-1.882-1.884-4.389-2.92-7.067-2.922-5.545 0-10.054 4.485-10.058 10.006-.001 2.067.538 4.084 1.56 5.867l.247.428-1.032 3.766 3.862-1.01zm11.365-6.83c-.347-.173-2.054-1.013-2.371-1.129-.317-.116-.549-.174-.78.174-.231.347-.896 1.129-1.097 1.36-.201.231-.402.26-.749.087-.347-.173-1.464-.54-2.788-1.72-1.03-.919-1.724-2.053-1.926-2.399-.201-.347-.021-.535.153-.707.156-.155.347-.405.52-.607.174-.203.231-.347.347-.578.116-.231.058-.434-.029-.607-.087-.173-.78-1.88-1.069-2.575-.282-.677-.567-.585-.78-.596-.201-.01-.433-.01-.664-.01-.231 0-.607.087-.924.434-.317.347-1.213 1.187-1.213 2.893 0 1.706 1.242 3.353 1.415 3.584.173.231 2.444 3.732 5.922 5.235.827.357 1.472.571 1.975.732.831.264 1.587.227 2.184.138.665-.1 2.054-.839 2.343-1.65.289-.812.289-1.506.203-1.65-.087-.145-.317-.231-.664-.405z"/></svg>
+                    Send Details to My WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="bg-gray-900 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-400">
+            <h2 class="text-xl md:text-2xl font-bold text-white mb-2">TRUE INVEST</h2>
+            <p class="mb-2 text-sm md:text-base">Your trusted partner in Real Estate.</p>
+            <p class="mb-4 text-sm md:text-base">📞 93101 27880</p>
+            <p class="text-xs md:text-sm">© 2026 True Invest. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- 1. Pop-up Form Logic ---
+        function openPopup(propertyName) {
+            const popup = document.getElementById('contact-popup');
+            const popupInner = document.getElementById('popup-inner');
+            const select = document.getElementById('propertySelect');
+            
+            if (select) {
+                if (propertyName && propertyName !== 'General') {
+                    select.value = propertyName;
+                } else {
+                    select.selectedIndex = 0; 
+                }
+            }
+
+            popup.classList.remove('hidden');
+            popup.classList.add('flex'); 
+            
+            setTimeout(() => {
+                popup.classList.remove('opacity-0');
+                popupInner.classList.remove('scale-95');
+                popupInner.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closePopup() {
+            const popup = document.getElementById('contact-popup');
+            const popupInner = document.getElementById('popup-inner');
+
+            popup.classList.add('opacity-0');
+            popupInner.classList.remove('scale-100');
+            popupInner.classList.add('scale-95');
+            
+            setTimeout(() => {
+                popup.classList.add('hidden');
+                popup.classList.remove('flex');
+            }, 300); 
+        }
+
+        // --- 2. WhatsApp Submission Logic ---
+        document.getElementById('whatsAppForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const property = document.getElementById('propertySelect').value;
+            const userMessage = document.getElementById('customMessage').value;
+            
+            const whatsappNumber = "919310127880"; 
+            
+            let textMessage = `Hello True Invest,%0A%0AI am interested in *${encodeURIComponent(property)}*. Here are my details:%0A%0A`;
+            textMessage += `*Name:* ${encodeURIComponent(name)}%0A`;
+            textMessage += `*Phone:* ${encodeURIComponent(phone)}%0A`;
+            
+            if(property === "Novel Heights") {
+                textMessage += `%0A*Code:* NOVEL%0A`;
+            }
+            
+            if(userMessage.trim() !== "") {
+                textMessage += `*Query:* ${encodeURIComponent(userMessage)}%0A`;
+            }
+            
+            textMessage += `%0APlease share the floor plan and pricing brochure.`;
+            
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${textMessage}`;
+            window.open(whatsappUrl, '_blank');
+            
+            closePopup(); 
+        });
+
+        // --- 3. Cinematic Hero Rotation (FIXED Crossfade without black screen) ---
+        document.addEventListener("DOMContentLoaded", () => {
+            const heroTitle = document.getElementById('hero-title');
+            const heroDesc = document.getElementById('hero-desc');
+
+            heroTitle.style.transition = 'opacity 0.5s ease-in-out, transform 0.5s ease-in-out';
+            heroDesc.style.transition = 'opacity 0.5s ease-in-out, transform 0.5s ease-in-out';
+
+            const carouselData = [
+                {
+                    title: "Find Your Perfect Home or Investment",
+                    desc: "Discover premium builder floors, high-ROI apartments, and futuristic smart homes across NCR."
+                },
+                {
+                    title: "Novel Heights",
+                    desc: "₹30 Lakh - Exclusively designed 2 BHK for maximum privacy & stable rental returns."
+                },
+                {
+                    title: "Lock n key Homes",
+                    desc: "Premium 2 & 3 BHK Builder Floors - Vastu compliant with 3-side open layouts."
+                },
+                {
+                    title: "Crossing Republik",
+                    desc: "₹1.80 Crore - Premium 4 BHK with seamless cross ventilation near NH-24."
+                },
+                {
+                    title: "Sushant Aquapolis",
+                    desc: "₹2.80 Crore - Ultra Luxury 4 BHK Fully Furnished Builder Floor in Ghaziabad."
+                },
+                {
+                    title: "AKJ Flora Homez",
+                    desc: "Futuristic Smart Homes with 100% RCC MIVAN Tech opposite Manipal Hospital."
+                }
+            ];
+
+            let currentIndex = 0;
+            const totalSlides = carouselData.length;
+
+            setInterval(() => {
+                let nextIndex = (currentIndex + 1) % totalSlides;
+
+                // Fade out text first
+                heroTitle.style.opacity = '0';
+                heroTitle.style.transform = 'translateY(15px)';
+                heroDesc.style.opacity = '0';
+                heroDesc.style.transform = 'translateY(15px)';
+
+                // Crossfade Media: Bring new to front, fade it in, delay fade out of old
+                const currentBg = document.getElementById(`hero-bg-${currentIndex}`);
+                const nextBg = document.getElementById(`hero-bg-${nextIndex}`);
+
+                nextBg.classList.remove('opacity-0');
+                nextBg.classList.add('opacity-100');
+                nextBg.style.zIndex = '10'; // Bring to top
+
+                currentBg.style.zIndex = '0'; // Push to back
+                
+                // Once transition ends, fully hide the old background
+                setTimeout(() => {
+                    currentBg.classList.remove('opacity-100');
+                    currentBg.classList.add('opacity-0');
+                }, 1000);
+
+                // Update text after text fade animation finishes
+                setTimeout(() => {
+                    heroTitle.innerText = carouselData[nextIndex].title;
+                    heroDesc.innerText = carouselData[nextIndex].desc;
+                    
+                    heroTitle.style.opacity = '1';
+                    heroTitle.style.transform = 'translateY(0)';
+                    heroDesc.style.opacity = '1';
+                    heroDesc.style.transform = 'translateY(0)';
+                    
+                    currentIndex = nextIndex;
+                }, 500); 
+
+            }, 4500); 
+        });
+    </script>
+</body>
+</html>

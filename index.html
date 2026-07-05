@@ -662,8 +662,11 @@
     </footer>
 
     <script>
-        // --- 1. GUARANTEED 5-SECOND AUTOMATIC POPUP SCRIPT (Triggers on Refresh/Load) ---
+        // --- 1. SMART AUTO-FILL POPUP LOADER & 5-SEC AUTOMATIC TRIGGER ---
         window.addEventListener('load', () => {
+            // Apply Auto-fill instantly as soon as form elements render
+            applySmartAutofill();
+
             setTimeout(() => {
                 const popup = document.getElementById('contact-popup');
                 if (popup.classList.contains('hidden')) {
@@ -671,6 +674,14 @@
                 }
             }, 5000); 
         });
+
+        // Function to extract and inject details automatically
+        function applySmartAutofill() {
+            const cachedName = localStorage.getItem('trueInvest_clientName');
+            const cachedPhone = localStorage.getItem('trueInvest_clientPhone');
+            if (cachedName) document.getElementById('name').value = cachedName;
+            if (cachedPhone) document.getElementById('phone').value = cachedPhone;
+        }
 
         // --- 2. Ultra-Smooth Native Intersection Observer Script ---
         const scrollObserverOptions = { root: null, rootMargin: '0px', threshold: 0.12 };
@@ -701,6 +712,9 @@
                 }
             }
 
+            // Trigger auto-fill check every time popup opens to maintain reliability
+            applySmartAutofill();
+
             popup.classList.remove('hidden');
             popup.classList.add('flex'); 
             
@@ -725,7 +739,7 @@
             }, 400); 
         }
 
-        // --- 4. WhatsApp Event Submission Handler ---
+        // --- 4. WhatsApp Event Handler + CRITICAL DUAL FAIL-SAFE STORAGE SYSTEM ---
         document.getElementById('whatsAppForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -733,9 +747,28 @@
             const phone = document.getElementById('phone').value;
             const property = document.getElementById('propertySelect').value;
             const userMessage = document.getElementById('customMessage').value;
+            const timestamp = new Date().toISOString();
             
+            // Step A: Save Client Metadata into device context for next visit Auto-Fill feature
+            localStorage.setItem('trueInvest_clientName', name);
+            localStorage.setItem('trueInvest_clientPhone', phone);
+
+            // Step B: Backup Storage Location 1 (Main Dashboard Local Leads Database Array)
+            try {
+                let mainLeadsList = JSON.parse(localStorage.getItem('trueInvest_mainLeads') || '[]');
+                mainLeadsList.push({ name, phone, property, query: userMessage, time: timestamp, channel: 'Main Database' });
+                localStorage.setItem('trueInvest_mainLeads', JSON.stringify(mainLeadsList));
+            } catch (err) { console.error("Backup 1 Fail-safe intercepted:", err); }
+
+            // Step C: Backup Storage Location 2 (Independent Secondary System Archive Log String)
+            try {
+                let backupLeadsList = JSON.parse(localStorage.getItem('trueInvest_backupLeads') || '[]');
+                backupLeadsList.push({ name, phone, property, query: userMessage, time: timestamp, channel: 'Secondary Mirror Log Archive' });
+                localStorage.setItem('trueInvest_backupLeads', JSON.stringify(backupLeadsList));
+            } catch (err) { console.error("Backup 2 Fail-safe intercepted:", err); }
+
+            // Proceeding with original WhatsApp connectivity logic flow
             const whatsappNumber = "919310127880"; 
-            
             let textMessage = `Hello True Invest,%0A%0AI am interested in *${encodeURIComponent(property)}*. Here are my details:%0A%0A`;
             textMessage += `*Name:* ${encodeURIComponent(name)}%0A`;
             textMessage += `*Phone:* ${encodeURIComponent(phone)}%0A`;

@@ -1,411 +1,474 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth scroll-pt-24">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>True Invest - Premium Properties</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Outfit', 'sans-serif'] },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'marquee': 'marquee 25s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        /* Ultra-Premium Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #f8fafc; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 20px; }
+        /* 60FPS STRICT LAYOUT & OPTIMIZATIONS */
+        html, body {
+            max-width: 100vw;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            background-color: #f8fafc;
+            text-rendering: optimizeLegibility;
+        }
+
+        /* Hardware Acceleration Classes */
+        .gpu-accelerated {
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            perspective: 1000px;
+            will-change: transform, opacity;
+        }
+
+        /* Render Optimization for Sections */
+        section {
+            contain: paint; /* Prevents layout shifts from affecting other sections */
+        }
+
+        /* Premium Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
-        /* Smooth Hardware Accelerated Animations */
+        /* Hardware Accelerated Scroll Animations */
         .fade-in-up { 
             opacity: 0; 
-            transform: translateY(30px); 
-            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); 
-            will-change: opacity, transform;
+            transform: translateY(30px) translate3d(0,0,0); 
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .fade-in-up.visible { 
             opacity: 1; 
-            transform: translateY(0); 
+            transform: translateY(0) translate3d(0,0,0); 
         }
 
-        /* Subtle glowing call to action */
+        /* Glowing Pulse Elements - GPU Safe */
         @keyframes subtlePulse {
-            0% { box-shadow: 0 0 0 0 rgba(15, 23, 42, 0.5); }
+            0% { box-shadow: 0 0 0 0 rgba(15, 23, 42, 0.4); }
             70% { box-shadow: 0 0 0 12px rgba(15, 23, 42, 0); }
             100% { box-shadow: 0 0 0 0 rgba(15, 23, 42, 0); }
         }
         .btn-pulse { animation: subtlePulse 2.5s infinite; }
+        
+        @keyframes urgentPulse {
+            0% { transform: scale(1) translateZ(0); opacity: 1; }
+            50% { transform: scale(1.02) translateZ(0); opacity: 0.9; }
+            100% { transform: scale(1) translateZ(0); opacity: 1; }
+        }
+        .animate-urgent { animation: urgentPulse 2s infinite; will-change: transform; }
 
-        /* Glassmorphism Hover Effects */
-        .glass-btn {
-            background: rgba(255, 255, 255, 0.1);
+        /* Glassmorphism Configuration */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .glass-btn-dark {
+            background: rgba(15, 23, 42, 0.65);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
-        .glass-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
+
+        /* Input Form Tweaks */
+        input, select, textarea { font-size: 16px !important; }
+        input:-webkit-autofill, select:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0 30px white inset !important;
+            border-radius: 0.75rem;
         }
     </style>
 </head>
-<body class="font-sans antialiased text-gray-900 bg-gray-50 overflow-x-hidden">
+<body class="font-sans antialiased text-slate-800 selection:bg-blue-200 selection:text-blue-900">
 
-    <header class="bg-white/90 backdrop-blur-lg shadow-sm fixed w-full z-50 top-0 border-b border-gray-100 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 sm:py-4 flex justify-between items-center">
-            <div class="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 tracking-tight whitespace-nowrap">
+    <div class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[90] flex flex-col gap-2 sm:gap-3 items-end gpu-accelerated">
+        <a href="tel:9310127880" class="w-12 h-12 bg-slate-900 hover:bg-black text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform transform-gpu border border-slate-700">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+        </a>
+        <a href="https://wa.me/919310127880?text=Hi%20True%20Invest,%20I%20am%20interested%20in%20your%20properties." target="_blank" rel="noopener noreferrer" class="w-14 h-14 bg-[#25D366] hover:bg-[#1ebd5c] text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform transform-gpu shadow-green-500/30 btn-pulse">
+            <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.411 0 11.981 0c3.184.001 6.177 1.242 8.426 3.496 2.249 2.254 3.487 5.253 3.485 8.441-.004 6.621-5.355 11.97-11.931 11.97h-.007c-2.012-.002-3.992-.511-5.74-1.48L0 24zm5.821-3.466l.379.225c1.745 1.036 3.777 1.583 5.769 1.585h.005c5.54 0 10.047-4.484 10.05-10.003.002-2.673-1.033-5.187-2.915-7.072-1.882-1.884-4.389-2.92-7.067-2.922-5.545 0-10.054 4.485-10.058 10.006-.001 2.067.538 4.084 1.56 5.867l.247.428-1.032 3.766 3.862-1.01zm11.365-6.83c-.347-.173-2.054-1.013-2.371-1.129-.317-.116-.549-.174-.78.174-.231.347-.896 1.129-1.097 1.36-.201.231-.402.26-.749.087-.347-.173-1.464-.54-2.788-1.72-1.03-.919-1.724-2.053-1.926-2.399-.201-.347-.021-.535.153-.707.156-.155.347-.405.52-.607.174-.203.231-.347.347-.578.116-.231.058-.434-.029-.607-.087-.173-.78-1.88-1.069-2.575-.282-.677-.567-.585-.78-.596-.201-.01-.433-.01-.664-.01-.231 0-.607.087-.924.434-.317.347-1.213 1.187-1.213 2.893 0 1.706 1.242 3.353 1.415 3.584.173.231 2.444 3.732 5.922 5.235.827.357 1.472.571 1.975.732.831.264 1.587.227 2.184.138.665-.1 2.054-.839 2.343-1.65.289-.812.289-1.506.203-1.65-.087-.145-.317-.231-.664-.405z"/></svg>
+        </a>
+    </div>
+
+    <header class="glass-panel fixed w-full z-[60] top-0 transition-all duration-300 gpu-accelerated">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex justify-between items-center">
+            <div class="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 tracking-tight flex items-center gap-2 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <div class="w-7 h-7 sm:w-8 sm:h-8 bg-slate-900 rounded-lg flex items-center justify-center">
+                    <span class="text-white text-base sm:text-lg leading-none">T</span>
+                </div>
                 TRUE INVEST
             </div>
-            <div>
-                <button onclick="openPopup('General')" class="btn-pulse bg-gradient-to-r from-slate-900 to-slate-800 hover:from-black hover:to-slate-900 text-white font-bold py-2.5 px-5 sm:px-7 text-sm sm:text-base rounded-full transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg active:scale-95 whitespace-nowrap border border-slate-700">
+            <div class="flex items-center gap-3 sm:gap-6">
+                <a href="tel:9310127880" class="inline-flex items-center gap-1.5 text-slate-900 hover:text-blue-600 font-extrabold text-sm sm:text-base tracking-tight transition-colors">
+                    <span>📞</span> <span class="hidden xs:inline">93101 27880</span>
+                </a>
+                <button onclick="openPopup('General')" class="btn-pulse bg-slate-900 hover:bg-black text-white font-bold py-2 px-4 sm:py-2.5 sm:px-6 rounded-full transition-all duration-300 transform-gpu hover:-translate-y-0.5 shadow-md text-xs sm:text-sm border border-slate-700">
                     Enquire Now
                 </button>
             </div>
         </div>
     </header>
 
-    <section class="relative pt-24 pb-16 lg:pt-32 lg:pb-28 overflow-hidden min-h-[100svh] lg:min-h-[95vh] flex items-center justify-center">
-        <div class="absolute inset-0 z-0 bg-black">
-            <div id="hero-bg-0" class="absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-100 z-10">
-                <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Home" class="w-full h-full object-cover">
+    <section class="relative pt-20 pb-16 lg:pt-32 lg:pb-28 overflow-hidden min-h-[100svh] flex items-center justify-center bg-slate-900">
+        <div class="absolute inset-0 z-0 bg-slate-900">
+            <div id="hero-bg-0" class="absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-100 z-10 gpu-accelerated">
+                <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Home" loading="eager" class="w-full h-full object-cover">
             </div>
-            <div id="hero-bg-1" class="absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 z-0">
-                <video autoplay loop muted playsinline class="w-full h-full object-cover">
+            <div id="hero-bg-1" class="absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 z-0 gpu-accelerated">
+                <video muted playsinline loop class="hero-video w-full h-full object-cover">
                     <source src="Building_construction_view_3d_202607041000.mp4" type="video/mp4">
                 </video>
             </div>
-            <div id="hero-bg-2" class="absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 z-0">
-                <video autoplay loop muted playsinline class="w-full h-full object-cover">
+            <div id="hero-bg-2" class="absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 z-0 gpu-accelerated">
+                <video muted playsinline loop class="hero-video w-full h-full object-cover">
                     <source src="best.mp4" type="video/mp4">
                 </video>
             </div>
-            <div id="hero-bg-3" class="absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 z-0">
-                <video autoplay loop muted playsinline class="w-full h-full object-cover">
+            <div id="hero-bg-3" class="absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 z-0 gpu-accelerated">
+                <video muted playsinline loop class="hero-video w-full h-full object-cover">
                     <source src="crossing_video.mp4" type="video/mp4">
                 </video>
             </div>
-            <div id="hero-bg-4" class="absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 z-0">
-                <img src="300 sq yard.jpeg" alt="Sushant Aquapolis" class="w-full h-full object-cover">
+            <div id="hero-bg-4" class="absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 z-0 gpu-accelerated">
+                <img src="300 sq yard.jpeg" alt="Sushant Aquapolis" loading="lazy" class="w-full h-full object-cover">
             </div>
-            <div id="hero-bg-5" class="absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 z-0">
-                <img src="Gemini_Generated_Image_r49b2lr49b2lr49b.png" alt="AKJ Flora Homez" class="w-full h-full object-cover">
+            <div id="hero-bg-5" class="absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 z-0 gpu-accelerated">
+                <img src="Gemini_Generated_Image_r49b2lr49b2lr49b.png" alt="AKJ Flora Homez" loading="lazy" class="w-full h-full object-cover">
             </div>
         </div>
 
-        <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/90 z-20"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/50 to-slate-950/95 z-20 pointer-events-none"></div>
         
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white z-30 w-full">
-            <h1 id="hero-title" class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-5 leading-tight tracking-tight drop-shadow-2xl px-1">
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white z-30 w-full flex flex-col items-center mt-10 sm:mt-0">
+            <span class="px-4 py-1.5 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-[10px] sm:text-xs md:text-sm font-semibold tracking-widest uppercase mb-4 sm:mb-6 animate-float transform-gpu">
+                Premium NCR Properties
+            </span>
+            <h1 id="hero-title" class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-4 sm:mb-6 leading-tight tracking-tight drop-shadow-2xl transition-all duration-500 transform-gpu">
                 Find Your Perfect Home <br class="hidden sm:block">or Investment
             </h1>
-            <p id="hero-desc" class="text-base sm:text-xl md:text-2xl mb-12 text-gray-200 max-w-3xl mx-auto drop-shadow-lg px-2 font-light">
+            <p id="hero-desc" class="text-sm sm:text-xl md:text-2xl mb-8 sm:mb-12 text-slate-200 max-w-3xl drop-shadow-lg font-light leading-relaxed px-2 transition-all duration-500 transform-gpu">
                 Discover premium builder floors, high-ROI apartments, and futuristic smart homes across NCR.
             </p>
             
-            <div class="flex flex-col sm:flex-row flex-wrap justify-center gap-4 max-w-6xl mx-auto px-2">
-                <a href="#property-novel" class="glass-btn w-full sm:w-auto text-white font-medium py-3.5 px-7 rounded-xl sm:rounded-full text-sm md:text-base shadow-xl transition-all duration-300 transform hover:-translate-y-1 block hover:border-amber-400 group">
-                    <span class="font-extrabold text-amber-400 group-hover:text-amber-300">₹30L</span> <span class="opacity-50 px-1">|</span> Ready to Move
+            <div class="flex flex-row flex-wrap justify-center gap-2 sm:gap-3 md:gap-4 max-w-5xl mx-auto w-full">
+                <a href="#property-novel" class="glass-btn-dark w-[48%] sm:w-auto text-white font-medium py-2.5 px-3 sm:py-3 sm:px-5 rounded-xl sm:rounded-full transition-all duration-300 hover:-translate-y-1 transform-gpu hover:bg-slate-800/80 group flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
+                    <span class="font-black text-emerald-400 group-hover:text-emerald-300 text-sm sm:text-base">₹30L</span> 
+                    <span class="hidden sm:inline opacity-30">|</span> 
+                    <span class="text-slate-300 text-[10px] sm:text-sm text-center">2 BHK Ready to Move</span>
                 </a>
-                
-                <a href="#property-locknkey" class="glass-btn w-full sm:w-auto text-white font-medium py-3.5 px-7 rounded-xl sm:rounded-full text-sm md:text-base shadow-xl transition-all duration-300 transform hover:-translate-y-1 block hover:border-blue-400 group">
-                    <span class="font-extrabold text-blue-400 group-hover:text-blue-300">₹37L - ₹57L</span> <span class="opacity-50 px-1">|</span> Premium
+                <a href="#property-locknkey" class="glass-btn-dark w-[48%] sm:w-auto text-white font-medium py-2.5 px-3 sm:py-3 sm:px-5 rounded-xl sm:rounded-full transition-all duration-300 hover:-translate-y-1 transform-gpu hover:bg-slate-800/80 group flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
+                    <span class="font-black text-blue-400 group-hover:text-blue-300 text-sm sm:text-base">₹37L - ₹57L</span> 
+                    <span class="hidden sm:inline opacity-30">|</span> 
+                    <span class="text-slate-300 text-[10px] sm:text-sm text-center">2/3 BHK Lock n key</span>
                 </a>
-                
-                <a href="#property-crossing" class="glass-btn w-full sm:w-auto text-white font-medium py-3.5 px-7 rounded-xl sm:rounded-full text-sm md:text-base shadow-xl transition-all duration-300 transform hover:-translate-y-1 block hover:border-emerald-400 group">
-                    <span class="font-extrabold text-emerald-400 group-hover:text-emerald-300">₹1.80Cr</span> <span class="opacity-50 px-1">|</span> 4 BHK Floor
+                <a href="#property-crossing" class="glass-btn-dark w-[48%] sm:w-auto text-white font-medium py-2.5 px-3 sm:py-3 sm:px-5 rounded-xl sm:rounded-full transition-all duration-300 hover:-translate-y-1 transform-gpu hover:bg-slate-800/80 group flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
+                    <span class="font-black text-teal-400 group-hover:text-teal-300 text-sm sm:text-base">₹1.80Cr</span> 
+                    <span class="hidden sm:inline opacity-30">|</span> 
+                    <span class="text-slate-300 text-[10px] sm:text-sm text-center">4 BHK Floor</span>
                 </a>
-                
-                <a href="#property-sushant" class="glass-btn w-full sm:w-auto text-white font-medium py-3.5 px-7 rounded-xl sm:rounded-full text-sm md:text-base shadow-xl transition-all duration-300 transform hover:-translate-y-1 block hover:border-yellow-300 group">
-                    <span class="font-extrabold text-yellow-300 group-hover:text-yellow-200">₹2.80Cr</span> <span class="opacity-50 px-1">|</span> Ultra Luxury
+                <a href="#property-sushant" class="glass-btn-dark w-[48%] sm:w-auto text-white font-medium py-2.5 px-3 sm:py-3 sm:px-5 rounded-xl sm:rounded-full transition-all duration-300 hover:-translate-y-1 transform-gpu hover:bg-slate-800/80 group flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
+                    <span class="font-black text-amber-400 group-hover:text-amber-300 text-sm sm:text-base">₹2.80Cr</span> 
+                    <span class="hidden sm:inline opacity-30">|</span> 
+                    <span class="text-slate-300 text-[10px] sm:text-sm text-center">Ultra Luxury</span>
                 </a>
-                
-                <a href="#property-akj" class="glass-btn w-full sm:w-auto text-white font-medium py-3.5 px-7 rounded-xl sm:rounded-full text-sm md:text-base shadow-xl transition-all duration-300 transform hover:-translate-y-1 block hover:border-purple-400 group">
-                    <span class="font-extrabold text-purple-400 group-hover:text-purple-300">AKJ Flora</span> <span class="opacity-50 px-1">|</span> Smart Homes
+                <a href="#property-akj" class="glass-btn-dark w-full sm:w-auto mt-1 sm:mt-0 text-white font-medium py-3 px-6 rounded-xl sm:rounded-full transition-all duration-300 hover:-translate-y-1 transform-gpu hover:bg-slate-800/80 group flex flex-row items-center justify-center gap-2 border-purple-500/30">
+                    <span class="font-black text-purple-400 group-hover:text-purple-300 text-sm sm:text-base">AKJ Flora</span> 
+                    <span class="opacity-30">|</span> 
+                    <span class="text-slate-300 text-xs sm:text-sm">Smart Apartment</span>
                 </a>
             </div>
         </div>
+        
+        <div class="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center animate-bounce opacity-70 gpu-accelerated">
+            <span class="text-[10px] sm:text-xs text-white tracking-widest uppercase mb-1 sm:mb-2">Scroll</span>
+            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </div>
     </section>
 
-    <section id="property-novel" class="py-16 md:py-24 bg-white border-b border-gray-100">
+    <div class="bg-slate-900 border-b border-slate-800 py-3 sm:py-4 overflow-hidden relative z-40">
+        <div class="flex whitespace-nowrap animate-marquee items-center text-slate-400 text-xs sm:text-sm md:text-base font-bold uppercase tracking-widest transform-gpu">
+            <span class="mx-6 sm:mx-8 flex items-center gap-2"><span class="text-yellow-500">★</span> 4.8/5 Customer Satisfaction</span>
+            <span class="mx-6 sm:mx-8">•</span>
+            <span class="mx-6 sm:mx-8">RERA Registered Projects</span>
+            <span class="mx-6 sm:mx-8">•</span>
+            <span class="mx-6 sm:mx-8">GDA Approved Projects</span>
+            <span class="mx-6 sm:mx-8">•</span>
+            <span class="mx-6 sm:mx-8">Flexible Payment Plans Available</span>
+            <span class="mx-6 sm:mx-8">•</span>
+            <span class="mx-6 sm:mx-8 flex items-center gap-2"><span class="text-yellow-500">★</span> 4.8/5 Customer Satisfaction</span>
+            <span class="mx-6 sm:mx-8">•</span>
+            <span class="mx-6 sm:mx-8">RERA Registered Projects</span>
+        </div>
+    </div>
+
+    <section id="property-novel" class="py-16 sm:py-20 md:py-32 bg-white relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-on-scroll fade-in-up">
-            <div class="flex flex-col lg:flex-row gap-10 lg:gap-16 items-center">
-                
-                <div class="lg:w-1/2 w-full flex justify-center items-center group">
-                    <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-gray-50 max-w-[340px] w-full bg-gray-200 transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.15)]">
-                        <video autoplay loop muted playsinline class="w-full h-[400px] md:h-[500px] object-cover">
+            <div class="flex flex-col lg:flex-row gap-8 sm:gap-12 lg:gap-20 items-center">
+                <div class="lg:w-1/2 w-full">
+                    <div class="relative rounded-2xl sm:rounded-[2rem] overflow-hidden shadow-xl sm:shadow-2xl border-4 sm:border-8 border-slate-50 aspect-[4/5] sm:aspect-video lg:aspect-[4/5] group w-full lg:max-w-md mx-auto gpu-accelerated">
+                        <video autoplay loop muted playsinline class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 transform-gpu">
                             <source src="Building_construction_view_3d_202607041000.mp4" type="video/mp4">
                         </video>
-                        <div class="absolute top-5 left-5 bg-emerald-500 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase shadow-lg tracking-wider">
+                        <div class="absolute top-4 left-4 sm:top-6 sm:left-6 bg-emerald-500 text-white text-[10px] sm:text-xs font-black px-3 py-1.5 sm:px-4 sm:py-2 rounded-full uppercase shadow-lg tracking-widest backdrop-blur-md">
                             Ready to Move
                         </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent pointer-events-none"></div>
                     </div>
                 </div>
 
                 <div class="lg:w-1/2 w-full">
-                    <span class="text-blue-600 font-bold tracking-widest uppercase text-xs md:text-sm">Shaberi, Noida Extension</span>
-                    <h2 class="text-4xl md:text-5xl font-black text-slate-900 mt-2 mb-4 tracking-tight">Novel Heights</h2>
+                    <div class="inline-flex items-center gap-2 mb-3 sm:mb-4">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse transform-gpu"></span>
+                        <span class="text-emerald-600 font-bold tracking-widest uppercase text-[10px] sm:text-xs md:text-sm">Shaberi, Noida Extension</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mb-4 sm:mb-6 tracking-tight">Novel Heights</h2>
                     
-                    <div class="flex flex-wrap items-center gap-4 mb-6">
-                        <span class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500">₹30 Lakh</span>
-                        <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs md:text-sm font-bold px-4 py-1.5 rounded-full shadow-sm">Fully Furnished 2 BHK</span>
+                    <div class="flex flex-wrap items-center gap-3 sm:gap-4 mb-4">
+                        <span class="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900">₹30 Lakh</span>
+                        <span class="bg-slate-100 border border-slate-200 text-slate-700 text-xs sm:text-sm font-bold px-3 py-1.5 sm:px-5 sm:py-2 rounded-xl shadow-sm">Fully Furnished 2 BHK</span>
+                    </div>
+                    
+                    <div class="mb-6 sm:mb-8 inline-block bg-red-50 text-red-600 border border-red-200 px-3 py-1.5 sm:px-4 sm:py-1.5 rounded-lg text-xs sm:text-sm font-bold animate-urgent transform-gpu">
+                        🔥 Only 2 Units Left at this Price!
                     </div>
 
-                    <p class="text-gray-600 text-base md:text-lg mb-8 leading-relaxed">
-                        Sirf ₹30 Lakh mein apna ghar, ya pehle din se returns dene wali smart investment! Exclusively designed with only 2 flats per floor for maximum privacy.
+                    <p class="text-slate-600 text-base sm:text-lg md:text-xl mb-8 sm:mb-10 leading-relaxed font-light">
+                        Sirf ₹30 Lakh mein apna ghar, ya pehle din se returns dene wali smart investment! Exclusively designed with only 2 flats per floor for maximum privacy. High ROI generating property with up to 90% easy home loan available.
                     </p>
 
-                    <div class="grid grid-cols-2 gap-3 sm:gap-4 mb-8 text-gray-800">
-                        <div class="flex items-center bg-gray-50 hover:bg-gray-100 transition-colors border border-gray-100 p-4 rounded-xl shadow-sm"><span class="text-2xl mr-3">🍳</span> <span class="text-xs sm:text-sm md:text-base"><strong>Modular Kitchen</strong><br><span class="text-gray-400 text-2xs sm:text-xs">RO & Chimney</span></span></div>
-                        <div class="flex items-center bg-gray-50 hover:bg-gray-100 transition-colors border border-gray-100 p-4 rounded-xl shadow-sm"><span class="text-2xl mr-3">🚪</span> <span class="text-xs sm:text-sm md:text-base"><strong>Smart Storage</strong><br><span class="text-gray-400 text-2xs sm:text-xs">Wardrobes</span></span></div>
-                        <div class="flex items-center bg-gray-50 hover:bg-gray-100 transition-colors border border-gray-100 p-4 rounded-xl shadow-sm"><span class="text-2xl mr-3">✨</span> <span class="text-xs sm:text-sm md:text-base"><strong>Premium Design</strong><br><span class="text-gray-400 text-2xs sm:text-xs">False Ceiling</span></span></div>
-                        <div class="flex items-center bg-gray-50 hover:bg-gray-100 transition-colors border border-gray-100 p-4 rounded-xl shadow-sm"><span class="text-2xl mr-3">🚗</span> <span class="text-xs sm:text-sm md:text-base"><strong>Covered Parking</strong><br><span class="text-gray-400 text-2xs sm:text-xs">& Lift Access</span></span></div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-8 sm:mb-10">
+                        <div class="bg-slate-50 p-4 sm:p-5 rounded-xl sm:rounded-2xl border border-slate-100 flex items-start gap-3 sm:gap-4 transition-colors hover:bg-emerald-50">
+                            <span class="text-xl sm:text-2xl mt-1">🍳</span> 
+                            <div><strong class="text-slate-900 block text-sm sm:text-base">Modular Kitchen</strong><span class="text-slate-500 text-[10px] sm:text-xs md:text-sm">RO & Chimney</span></div>
+                        </div>
+                        <div class="bg-slate-50 p-4 sm:p-5 rounded-xl sm:rounded-2xl border border-slate-100 flex items-start gap-3 sm:gap-4 transition-colors hover:bg-emerald-50">
+                            <span class="text-xl sm:text-2xl mt-1">🚪</span> 
+                            <div><strong class="text-slate-900 block text-sm sm:text-base">Smart Storage</strong><span class="text-slate-500 text-[10px] sm:text-xs md:text-sm">Wardrobes</span></div>
+                        </div>
+                        <div class="bg-slate-50 p-4 sm:p-5 rounded-xl sm:rounded-2xl border border-slate-100 flex items-start gap-3 sm:gap-4 transition-colors hover:bg-emerald-50">
+                            <span class="text-xl sm:text-2xl mt-1">✨</span> 
+                            <div><strong class="text-slate-900 block text-sm sm:text-base">Premium Design</strong><span class="text-slate-500 text-[10px] sm:text-xs md:text-sm">False Ceiling</span></div>
+                        </div>
+                        <div class="bg-slate-50 p-4 sm:p-5 rounded-xl sm:rounded-2xl border border-slate-100 flex items-start gap-3 sm:gap-4 transition-colors hover:bg-emerald-50">
+                            <span class="text-xl sm:text-2xl mt-1">🚗</span> 
+                            <div><strong class="text-slate-900 block text-sm sm:text-base">Parking & Lift</strong><span class="text-slate-500 text-[10px] sm:text-xs md:text-sm">Covered Access</span></div>
+                        </div>
                     </div>
 
-                    <div class="bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-100 rounded-2xl p-6 mb-8 shadow-sm">
-                        <h4 class="font-bold text-emerald-900 text-lg flex items-center mb-1.5">
-                            <span class="mr-2 text-xl">📈</span> High ROI Investment
-                        </h4>
-                        <p class="text-emerald-800/90 text-sm leading-relaxed">Ye property sirf rehne ke liye nahi, balki passive income ke liye bhi perfect hai. Start earning stable rental returns from Day 1.</p>
-                        <p class="text-emerald-950 font-black mt-3 text-base sm:text-lg">Expected Rental: ₹12,000 - ₹15,000 / month</p>
-                    </div>
-
-                    <button onclick="openPopup('Novel Heights')" class="w-full sm:w-auto bg-slate-900 hover:bg-black text-white font-bold py-4 px-10 rounded-xl transition-all duration-300 shadow-xl hover:shadow-2xl block text-center transform hover:-translate-y-1 text-base">
-                        Get Floor Plan (Code: NOVEL)
+                    <button onclick="openPopup('Novel Heights')" class="w-full sm:w-auto bg-slate-900 hover:bg-emerald-600 text-white font-bold py-3.5 px-8 sm:py-4 sm:px-10 rounded-xl transition-all duration-300 shadow-xl hover:shadow-emerald-500/30 text-center transform-gpu hover:-translate-y-1 text-sm sm:text-base md:text-lg flex items-center justify-center gap-2 sm:gap-3">
+                        Get Floor Plan (Code: NOVEL) <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </button>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="property-locknkey" class="py-16 md:py-24 bg-gray-50 border-b border-gray-200">
+    <section id="property-locknkey" class="py-16 sm:py-20 md:py-32 bg-slate-50 relative border-t border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-on-scroll fade-in-up">
-            <div class="text-center mb-12 md:mb-16">
-                <span class="text-blue-600 font-bold tracking-widest uppercase text-xs md:text-sm">Sec 16-B, Greater Noida West</span>
-                <h2 class="text-4xl md:text-5xl font-black text-slate-900 mt-2 tracking-tight">Lock n key Homes</h2>
-                <p class="mt-3 text-base md:text-lg text-gray-500">Premium 2 & 3 BHK Builder Floor Apartments</p>
+            <div class="text-center mb-10 sm:mb-16 md:mb-20">
+                <span class="text-blue-600 font-bold tracking-widest uppercase text-[10px] sm:text-xs md:text-sm">Sec 16-B, Greater Noida West</span>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mt-2 sm:mt-4 tracking-tight">Lock n key Homes</h2>
+                <p class="mt-2 sm:mt-4 text-base sm:text-lg md:text-xl text-slate-500 font-light">Premium 2 & 3 BHK Builder Floor Apartments</p>
             </div>
             
-            <div class="flex flex-col lg:flex-row gap-10 lg:gap-16">
+            <div class="flex flex-col lg:flex-row gap-8 sm:gap-12 lg:gap-20">
                 <div class="lg:w-1/2 w-full order-2 lg:order-1">
-                    <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white mb-8 bg-gray-200 aspect-video group">
-                        <video autoplay loop muted playsinline class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="relative rounded-2xl sm:rounded-[2rem] overflow-hidden shadow-xl sm:shadow-2xl mb-6 sm:mb-8 bg-slate-200 aspect-video group border-4 border-white gpu-accelerated">
+                        <video autoplay loop muted playsinline class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 transform-gpu">
                             <source src="best.mp4" type="video/mp4">
                         </video>
-                        <div class="absolute top-5 left-5 bg-amber-500 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase shadow-lg">
+                        <div class="absolute top-4 left-4 sm:top-6 sm:left-6 bg-blue-600 text-white text-[10px] sm:text-xs font-black px-3 py-1.5 sm:px-4 sm:py-2 rounded-full uppercase shadow-lg tracking-widest backdrop-blur-md">
                             Premium Project
                         </div>
                     </div>
 
-                    <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl shadow-2xl p-6 md:p-8 text-white border border-slate-700 transform hover:-translate-y-1 transition-all duration-300">
-                        <h3 class="text-xl md:text-2xl font-bold mb-2 text-amber-400">Flexible Payment Plan</h3>
-                        <p class="text-slate-300 text-sm mb-6 font-light">Investor-friendly schedule. Easy & hassle-free home loan available.</p>
-                        <ul class="space-y-4 mb-8">
-                            <li class="flex justify-between border-b border-slate-700 pb-3">
-                                <span class="text-slate-300 text-sm md:text-base">Pay Now (To Book)</span>
-                                <span class="font-black text-xl md:text-2xl text-emerald-400">30%</span>
-                            </li>
-                            <li class="flex justify-between pt-1">
-                                <span class="text-slate-300 text-sm md:text-base">Pay Later (At Possession)</span>
-                                <span class="font-black text-xl md:text-2xl text-emerald-400">70%</span>
-                            </li>
-                        </ul>
-                        <button onclick="openPopup('Lock n key Homes')" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-blue-500/50 text-lg">
+                    <div class="bg-slate-900 rounded-2xl sm:rounded-[2rem] shadow-xl p-6 sm:p-8 relative overflow-hidden transform-gpu hover:-translate-y-1 transition-all duration-300">
+                        <div class="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 bg-blue-500/10 rounded-full blur-2xl pointer-events-none"></div>
+                        <h3 class="text-xl sm:text-2xl font-bold mb-2 text-white">Flexible Payment Plan</h3>
+                        <p class="text-slate-400 text-xs sm:text-sm mb-6 sm:mb-8 font-light">Investor-friendly schedule. Easy & hassle-free home loan available.</p>
+                        
+                        <div class="space-y-4 sm:space-y-6 mb-6 sm:mb-8 relative z-10">
+                            <div class="flex justify-between items-end border-b border-slate-800 pb-3 sm:pb-4">
+                                <span class="text-slate-300 text-sm sm:text-base">Pay Now <br><span class="text-[10px] sm:text-xs text-slate-500 uppercase tracking-wider">To Book</span></span>
+                                <span class="font-black text-2xl sm:text-3xl text-blue-400">30%</span>
+                            </div>
+                            <div class="flex justify-between items-end">
+                                <span class="text-slate-300 text-sm sm:text-base">Pay Later <br><span class="text-[10px] sm:text-xs text-slate-500 uppercase tracking-wider">At Possession</span></span>
+                                <span class="font-black text-2xl sm:text-3xl text-white">70%</span>
+                            </div>
+                        </div>
+                        <button onclick="openPopup('Lock n key Homes')" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 sm:py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-blue-500/30 text-sm sm:text-lg text-center transform-gpu hover:scale-[1.02]">
                             Book Site Visit
                         </button>
                     </div>
                 </div>
 
-                <div class="lg:w-1/2 w-full order-1 lg:order-2">
-                    <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 border-b border-gray-200 pb-5 gap-4">
-                        <div>
-                            <p class="text-xs sm:text-sm font-bold bg-amber-50 text-amber-800 px-4 py-1.5 rounded-full inline-block border border-amber-200 shadow-sm">Under Construction (6–9 Months)</p>
-                        </div>
+                <div class="lg:w-1/2 w-full order-1 lg:order-2 flex flex-col justify-center">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 sm:mb-8 pb-4 sm:pb-6 border-b border-slate-200 gap-3 sm:gap-4">
+                        <span class="text-[10px] sm:text-xs md:text-sm font-bold bg-white text-slate-800 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full inline-block border border-slate-200 shadow-sm w-max">
+                            ⏳ Under Construction (6–9 Months)
+                        </span>
                         <div class="text-left sm:text-right">
-                            <p class="text-xs text-gray-400 uppercase tracking-widest font-semibold">Starting Price</p>
-                            <p class="text-3xl md:text-4xl font-black text-blue-600 mt-1">₹37 L - ₹57 L*</p>
+                            <p class="text-[10px] sm:text-xs text-slate-400 uppercase tracking-widest font-bold">Starting Price</p>
+                            <p class="text-2xl sm:text-3xl md:text-4xl font-black text-blue-600 mt-0.5 sm:mt-1">₹37L - ₹57L*</p>
                         </div>
                     </div>
 
-                    <p class="text-gray-600 text-base md:text-lg mb-8 leading-relaxed">
-                        Discover peaceful, low-density living. 3-side open, cross-ventilated layouts that are entirely Vastu-friendly with wide 27-foot road access and exceptional connectivity.
+                    <p class="text-slate-600 text-base sm:text-lg md:text-xl mb-8 sm:mb-10 leading-relaxed font-light">
+                        Discover peaceful, low-density living. 3-side open, cross-ventilated layouts that are entirely Vastu-friendly with wide 27-foot road access and exceptional connectivity to top schools and hospitals.
                     </p>
 
-                    <div class="block sm:hidden space-y-3 mb-8">
-                        <div class="bg-white p-4 rounded-xl border border-gray-150 shadow-sm flex flex-col gap-1.5">
-                            <div class="flex justify-between items-center"><span class="text-sm font-black text-gray-900">2 BHK</span><span class="text-xs font-bold bg-blue-50 text-blue-700 px-2.5 py-0.5 rounded">830 sq. ft.</span></div>
-                            <div class="text-xs text-gray-500 border-t border-gray-100 pt-1.5 mt-1">Details: 2 Bed + 1 Bath</div>
+                    <h4 class="font-bold text-slate-900 mb-3 sm:mb-4 uppercase tracking-wider text-xs sm:text-sm">Configurations</h4>
+                    <div class="space-y-2 sm:space-y-3 mb-8 sm:mb-10">
+                        <div class="bg-white p-3 sm:p-4 md:p-5 rounded-xl sm:rounded-2xl border border-slate-200 shadow-sm flex justify-between items-center hover:border-blue-300 transition-colors">
+                            <div><span class="font-black text-slate-900 block text-base sm:text-lg">2 BHK</span><span class="text-xs sm:text-sm text-slate-500"></span></div>
+                            <span class="font-bold bg-slate-100 text-slate-700 px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg text-xs sm:text-sm">830 sq. ft.</span>
                         </div>
-                        <div class="bg-white p-4 rounded-xl border border-gray-150 shadow-sm flex flex-col gap-1.5">
-                            <div class="flex justify-between items-center"><span class="text-sm font-bold text-gray-900">2 BHK</span><span class="text-xs font-bold bg-blue-50 text-blue-700 px-2.5 py-0.5 rounded">995 sq. ft.</span></div>
-                            <div class="text-xs text-gray-500 border-t border-gray-100 pt-1.5 mt-1">Details: 2 Bed + 2 Bath</div>
+                        <div class="bg-white p-3 sm:p-4 md:p-5 rounded-xl sm:rounded-2xl border border-slate-200 shadow-sm flex justify-between items-center hover:border-blue-300 transition-colors">
+                            <div><span class="font-black text-slate-900 block text-base sm:text-lg">2 BHK</span><span class="text-xs sm:text-sm text-slate-500"></span></div>
+                            <span class="font-bold bg-slate-100 text-slate-700 px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg text-xs sm:text-sm">995 sq. ft.</span>
                         </div>
-                        <div class="bg-blue-50/20 p-4 rounded-xl border border-blue-150 shadow-sm flex flex-col gap-1.5">
-                            <div class="flex justify-between items-center"><span class="text-sm font-black text-blue-900">3 BHK</span><span class="text-xs font-bold bg-blue-600 text-white px-2.5 py-0.5 rounded">1200 sq. ft.</span></div>
-                            <div class="text-xs text-blue-700 border-t border-blue-100/50 pt-1.5 mt-1 font-medium">Details: 3 Bed + 2 Bath</div>
+                        <div class="bg-blue-50 border-blue-200 p-3 sm:p-4 md:p-5 rounded-xl sm:rounded-2xl border shadow-sm flex justify-between items-center relative overflow-hidden">
+                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-blue-500"></div>
+                            <div><span class="font-black text-blue-900 block text-base sm:text-lg">3 BHK</span><span class="text-xs sm:text-sm text-blue-700"></span></div>
+                            <span class="font-bold bg-blue-600 text-white px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg text-xs sm:text-sm shadow-sm">1200 sq. ft.</span>
                         </div>
-                        <div class="bg-blue-50/20 p-4 rounded-xl border border-blue-150 shadow-sm flex flex-col gap-1.5">
-                            <div class="flex justify-between items-center"><span class="text-sm font-black text-blue-900">3 BHK</span><span class="text-xs font-bold bg-blue-600 text-white px-2.5 py-0.5 rounded">1260 sq. ft.</span></div>
-                            <div class="text-xs text-blue-700 border-t border-blue-100/50 pt-1.5 mt-1 font-medium">Details: 3 Bed + 2 Bath</div>
+                        <div class="bg-blue-50 border-blue-200 p-3 sm:p-4 md:p-5 rounded-xl sm:rounded-2xl border shadow-sm flex justify-between items-center relative overflow-hidden">
+                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-blue-500"></div>
+                            <div><span class="font-black text-blue-900 block text-base sm:text-lg">3 BHK</span><span class="text-xs sm:text-sm text-blue-700"></span></div>
+                            <span class="font-bold bg-blue-600 text-white px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg text-xs sm:text-sm shadow-sm">1260 sq. ft.</span>
                         </div>
                     </div>
 
-                    <div class="hidden sm:block overflow-hidden bg-white rounded-2xl shadow-sm mb-8 border border-gray-200">
-                        <table class="min-w-full text-left text-sm text-gray-700 whitespace-nowrap">
-                            <thead class="bg-slate-800 text-white">
-                                <tr>
-                                    <th class="px-5 sm:px-6 py-4 font-bold uppercase text-xs tracking-wider">Config</th>
-                                    <th class="px-5 sm:px-6 py-4 font-bold uppercase text-xs tracking-wider">Super Area</th>
-                                    <th class="px-5 sm:px-6 py-4 font-bold uppercase text-xs tracking-wider">Details</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-100">
-                                <tr class="hover:bg-gray-50 transition-colors">
-                                    <td class="px-5 sm:px-6 py-4.5 font-bold text-gray-900">2 BHK</td>
-                                    <td class="px-5 sm:px-6 py-4.5 text-gray-600">830 sq. ft.</td>
-                                    <td class="px-5 sm:px-6 py-4.5 text-gray-500">2 Bed + 1 Bath</td>
-                                </tr>
-                                <tr class="hover:bg-gray-50 transition-colors">
-                                    <td class="px-5 sm:px-6 py-4.5 font-bold text-gray-900">2 BHK</td>
-                                    <td class="px-5 sm:px-6 py-4.5 text-gray-600">995 sq. ft.</td>
-                                    <td class="px-5 sm:px-6 py-4.5 text-gray-500">2 Bed + 2 Bath</td>
-                                </tr>
-                                <tr class="bg-blue-50/40 hover:bg-blue-50/80 transition-colors">
-                                    <td class="px-5 sm:px-6 py-4.5 font-black text-blue-900">3 BHK</td>
-                                    <td class="px-5 sm:px-6 py-4.5 text-blue-900 font-semibold">1200 sq. ft.</td>
-                                    <td class="px-5 sm:px-6 py-4.5 text-blue-800">3 Bed + 2 Bath</td>
-                                </tr>
-                                <tr class="bg-blue-50/40 hover:bg-blue-50/80 transition-colors">
-                                    <td class="px-5 sm:px-6 py-4.5 font-black text-blue-900">3 BHK</td>
-                                    <td class="px-5 sm:px-6 py-4.5 text-blue-900 font-semibold">1260 sq. ft.</td>
-                                    <td class="px-5 sm:px-6 py-4.5 text-blue-800">3 Bed + 2 Bath</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-white hover:bg-gray-50 p-4 rounded-xl border border-gray-100 shadow-sm transition-colors text-gray-800 flex items-center text-xs sm:text-sm font-semibold"><span class="text-2xl mr-3">🧭</span> Vastu Compliant</div>
-                        <div class="bg-white hover:bg-gray-50 p-4 rounded-xl border border-gray-100 shadow-sm transition-colors text-gray-800 flex items-center text-xs sm:text-sm font-semibold"><span class="text-2xl mr-3">🌬️</span> 3-Side Open Layout</div>
-                        <div class="bg-white hover:bg-gray-50 p-4 rounded-xl border border-gray-100 shadow-sm transition-colors text-gray-800 flex items-center text-xs sm:text-sm font-semibold"><span class="text-2xl mr-3">📍</span> 15-min Akshardham</div>
-                        <div class="bg-white hover:bg-gray-50 p-4 rounded-xl border border-gray-100 shadow-sm transition-colors text-gray-800 flex items-center text-xs sm:text-sm font-semibold"><span class="text-2xl mr-3">🛡️</span> Gated Security</div>
+                    <div class="grid grid-cols-2 gap-3 sm:gap-4">
+                        <div class="bg-white p-3 sm:p-4 rounded-xl border border-slate-200 shadow-sm text-slate-700 flex items-center text-xs sm:text-sm font-semibold hover:bg-slate-50 transition-colors"><span class="text-lg sm:text-xl mr-2 sm:mr-3">🧭</span> Vastu OK</div>
+                        <div class="bg-white p-3 sm:p-4 rounded-xl border border-slate-200 shadow-sm text-slate-700 flex items-center text-xs sm:text-sm font-semibold hover:bg-slate-50 transition-colors"><span class="text-lg sm:text-xl mr-2 sm:mr-3">🌬️</span> 3-Side Open</div>
+                        <div class="bg-white p-3 sm:p-4 rounded-xl border border-slate-200 shadow-sm text-slate-700 flex items-center text-xs sm:text-sm font-semibold hover:bg-slate-50 transition-colors"><span class="text-lg sm:text-xl mr-2 sm:mr-3">📍</span> Akshardham</div>
+                        <div class="bg-white p-3 sm:p-4 rounded-xl border border-slate-200 shadow-sm text-slate-700 flex items-center text-xs sm:text-sm font-semibold hover:bg-slate-50 transition-colors"><span class="text-lg sm:text-xl mr-2 sm:mr-3">🛡️</span> Gated</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="property-crossing" class="py-16 md:py-24 bg-white border-b border-gray-200">
+    <section id="property-crossing" class="py-16 sm:py-20 md:py-32 bg-white relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-on-scroll fade-in-up">
-            <div class="text-center mb-12 md:mb-16">
-                <span class="text-emerald-600 font-bold tracking-widest uppercase text-xs md:text-sm">Crossing Republik, Near NH-24</span>
-                <h2 class="text-4xl md:text-5xl font-black text-slate-900 mt-2 tracking-tight">Premium 4 BHK Floor</h2>
-                <p class="mt-3 text-base md:text-lg text-gray-500 max-w-2xl mx-auto">Luxury Living Awaits in Ghaziabad's prime location.</p>
+            <div class="text-center mb-10 sm:mb-16 md:mb-20">
+                <span class="text-teal-600 font-bold tracking-widest uppercase text-[10px] sm:text-xs md:text-sm">Crossing Republik, Near NH-24</span>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mt-2 sm:mt-4 tracking-tight">Premium 4 BHK Floor</h2>
+                <p class="mt-2 sm:mt-4 text-base sm:text-lg md:text-xl text-slate-500 font-light">Luxury Living Awaits in Ghaziabad's prime location.</p>
             </div>
             
-            <div class="flex flex-col lg:flex-row-reverse gap-10 lg:gap-16">
+            <div class="flex flex-col lg:flex-row-reverse gap-8 sm:gap-12 lg:gap-20">
                 <div class="lg:w-1/2 w-full order-2 lg:order-1">
-                    <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white mb-8 bg-gray-200 aspect-video group">
-                        <video autoplay loop muted playsinline class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="relative rounded-2xl sm:rounded-[2rem] overflow-hidden shadow-xl sm:shadow-2xl mb-6 sm:mb-8 bg-slate-200 aspect-video group border-4 border-slate-50 gpu-accelerated">
+                        <video autoplay loop muted playsinline class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 transform-gpu">
                             <source src="crossing_video.mp4" type="video/mp4">
                         </video>
-                        <div class="absolute top-5 left-5 bg-emerald-500 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase shadow-lg">
+                        <div class="absolute top-4 right-4 sm:top-6 sm:right-6 bg-teal-500 text-white text-[10px] sm:text-xs font-black px-3 py-1.5 sm:px-4 sm:py-2 rounded-full uppercase shadow-lg tracking-widest backdrop-blur-md">
                             GDA-Approved
                         </div>
                     </div>
 
-                    <div class="bg-gradient-to-br from-emerald-900 to-slate-900 rounded-3xl shadow-2xl p-6 md:p-8 text-white border border-emerald-800 transform hover:-translate-y-1 transition-all duration-300">
-                        <h3 class="text-xl md:text-2xl font-bold mb-2 flex items-center text-emerald-400">
-                            <span class="mr-3 text-2xl">🔑</span> Flexible Possession
+                    <div class="bg-slate-900 rounded-2xl sm:rounded-[2rem] shadow-xl p-6 sm:p-8 relative overflow-hidden transform-gpu hover:-translate-y-1 transition-all duration-300 border border-slate-800">
+                        <h3 class="text-xl sm:text-2xl font-bold mb-2 flex items-center text-white">
+                            <span class="mr-2 sm:mr-3 text-xl sm:text-2xl">🔑</span> Flexible Possession
                         </h3>
-                        <p class="text-slate-300 text-sm mb-6 font-light">Get the keys to your new home in just 10 months. Hassle-free home loans available.</p>
-                        <ul class="space-y-4 mb-8">
-                            <li class="flex justify-between border-b border-emerald-800/50 pb-3">
-                                <span class="text-slate-300 text-sm md:text-base">Pay Now (Down Payment)</span>
-                                <span class="font-black text-xl md:text-2xl text-amber-400">30%</span>
-                            </li>
-                            <li class="flex justify-between pt-1">
-                                <span class="text-slate-300 text-sm md:text-base">Pay Later (On Possession)</span>
-                                <span class="font-black text-xl md:text-2xl text-amber-400">70%</span>
-                            </li>
-                        </ul>
-                        <button onclick="openPopup('Crossing Republik')" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-emerald-500/50 text-lg">
+                        <p class="text-slate-400 text-xs sm:text-sm mb-6 sm:mb-8 font-light">Get the keys to your new home in just 10 months. Hassle-free home loans available up to 80%.</p>
+                        
+                        <div class="space-y-4 sm:space-y-6 mb-6 sm:mb-8">
+                            <div class="flex justify-between items-end border-b border-slate-800 pb-3 sm:pb-4">
+                                <span class="text-slate-300 text-sm sm:text-base">Down Payment</span>
+                                <span class="font-black text-2xl sm:text-3xl text-teal-400">30%</span>
+                            </div>
+                            <div class="flex justify-between items-end">
+                                <span class="text-slate-300 text-sm sm:text-base">On Possession</span>
+                                <span class="font-black text-2xl sm:text-3xl text-white">70%</span>
+                            </div>
+                        </div>
+                        <button onclick="openPopup('Crossing Republik')" class="w-full bg-teal-600 hover:bg-teal-500 text-white font-bold py-3.5 sm:py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-teal-500/30 text-sm sm:text-lg mb-2 sm:mb-3 transform-gpu hover:scale-[1.02]">
                             Lock Your Booking
+                        </button>
+                        <button onclick="openPopup('Crossing Republik')" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 border border-slate-700 flex items-center justify-center gap-2 text-sm sm:text-base transform-gpu hover:scale-[1.02]">
+                            🎥 Take 360° Virtual Tour
                         </button>
                     </div>
                 </div>
 
-                <div class="lg:w-1/2 w-full order-1 lg:order-2">
-                    <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 border-b border-gray-200 pb-5 gap-4">
-                        <div>
-                            <p class="font-bold bg-slate-100 text-slate-800 px-4 py-1.5 rounded-full inline-block text-xs md:text-sm border border-slate-200 shadow-sm">Fully Furnished | 237 Gaj</p>
-                        </div>
+                <div class="lg:w-1/2 w-full order-1 lg:order-2 flex flex-col justify-center">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 sm:mb-8 pb-4 sm:pb-6 border-b border-slate-200 gap-3 sm:gap-4">
+                        <span class="text-[10px] sm:text-xs md:text-sm font-bold bg-slate-100 text-slate-800 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full inline-block shadow-sm w-max">
+                            Fully Furnished | 237 Gaj
+                        </span>
                         <div class="text-left sm:text-right">
-                            <p class="text-xs text-gray-400 uppercase tracking-widest font-semibold">Starting Price</p>
-                            <p class="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500 mt-1">₹1.80 Crore*</p>
+                            <p class="text-[10px] sm:text-xs text-slate-400 uppercase tracking-widest font-bold">Starting Price</p>
+                            <p class="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 mt-0.5 sm:mt-1">₹1.80 Crore*</p>
                         </div>
                     </div>
 
-                    <p class="text-gray-600 text-base md:text-lg mb-8 leading-relaxed">
+                    <p class="text-slate-600 text-base sm:text-lg md:text-xl mb-8 sm:mb-10 leading-relaxed font-light">
                         Discover your perfect sanctuary near NH-24. This brilliantly designed, two-side open space ensures abundant natural light and seamless cross ventilation in a peaceful, fully gated society.
                     </p>
 
-                    <div class="block sm:hidden bg-white border border-gray-150 rounded-2xl shadow-sm p-5 space-y-4 mb-8">
-                        <div class="flex justify-between items-center border-b border-gray-100 pb-2.5">
-                            <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Config</span>
-                            <span class="text-sm font-black text-slate-900">4 BHK + Servant</span>
+                    <div class="bg-teal-50 border border-teal-100 rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 mb-8 sm:mb-10 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-6 relative overflow-hidden">
+                        <div class="absolute -left-4 -bottom-4 w-24 h-24 sm:w-32 sm:h-32 bg-teal-100/50 rounded-full pointer-events-none"></div>
+                        <div class="relative z-10">
+                            <span class="text-teal-800 font-black text-xl sm:text-2xl block mb-1">4 BHK + Servant</span>
+                            <span class="text-teal-600/80 font-semibold text-xs sm:text-sm">4 Bed + 4 Bath + Servant Rm</span>
                         </div>
-                        <div class="flex justify-between items-center border-b border-gray-100 pb-2.5">
-                            <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Super Area</span>
-                            <span class="text-sm font-extrabold text-emerald-600">2,150 sq. ft.</span>
-                        </div>
-                        <div class="flex flex-col gap-1 pt-0.5">
-                            <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Details Specification</span>
-                            <span class="text-sm font-medium text-gray-700 bg-slate-50 border border-gray-100 rounded-xl p-3 mt-1.5 leading-relaxed">4 Bed + 4 Bath + Servant Rm</span>
+                        <div class="bg-white px-4 py-2 sm:px-5 sm:py-3 rounded-lg sm:rounded-xl shadow-sm border border-teal-100 text-center relative z-10 w-full sm:w-auto">
+                            <span class="block text-[10px] sm:text-xs text-slate-400 uppercase tracking-widest font-bold mb-1">Super Area</span>
+                            <span class="text-lg sm:text-xl font-black text-slate-900">2,150 sq. ft.</span>
                         </div>
                     </div>
 
-                    <div class="hidden sm:block overflow-hidden bg-white rounded-2xl shadow-sm mb-8 border border-gray-200">
-                        <table class="min-w-full text-left text-sm text-gray-700 whitespace-nowrap">
-                            <thead class="bg-gradient-to-r from-emerald-900 to-emerald-800 text-white">
-                                <tr>
-                                    <th class="px-5 sm:px-6 py-4 font-bold uppercase text-xs tracking-wider">Config</th>
-                                    <th class="px-5 sm:px-6 py-4 font-bold uppercase text-xs tracking-wider">Super Area</th>
-                                    <th class="px-5 sm:px-6 py-4 font-bold uppercase text-xs tracking-wider">Details</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-100">
-                                <tr class="bg-emerald-50/30 hover:bg-emerald-50/70 transition-colors">
-                                    <td class="px-5 sm:px-6 py-4.5 font-black text-emerald-950">4 BHK + Servant</td>
-                                    <td class="px-5 sm:px-6 py-4.5 text-emerald-900 font-semibold">2,150 sq. ft.</td>
-                                    <td class="px-5 sm:px-6 py-4.5 text-emerald-800">4 Bed + 4 Bath + Servant Rm</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <h3 class="text-xl font-bold text-slate-900 mb-5 tracking-tight">Why Choose This Home?</h3>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="bg-gray-50 hover:bg-white border border-gray-100 p-5 rounded-2xl shadow-sm hover:shadow-md transition-all flex items-start group">
-                            <span class="text-3xl mr-4 transform group-hover:scale-110 transition-transform drop-shadow-sm">🧭</span>
+                    <h3 class="text-base sm:text-lg font-bold text-slate-900 mb-4 sm:mb-5 uppercase tracking-wider">Why Choose This Home?</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                        <div class="bg-slate-50 border border-slate-100 p-4 sm:p-5 rounded-xl sm:rounded-2xl flex items-start gap-3 sm:gap-4 hover:bg-slate-100 transition-colors">
+                            <span class="text-xl sm:text-2xl mt-1 drop-shadow-sm">🧭</span>
                             <div>
-                                <h4 class="font-bold text-slate-900">Thoughtful Design</h4>
-                                <p class="text-xs text-gray-500 mt-1">2-side open & Vastu-friendly</p>
+                                <h4 class="font-bold text-slate-900 text-sm sm:text-base">Thoughtful Design</h4>
+                                <p class="text-xs sm:text-sm text-slate-500 mt-1 font-light">2-side open & Vastu</p>
                             </div>
                         </div>
-                        <div class="bg-gray-50 hover:bg-white border border-gray-100 p-5 rounded-2xl shadow-sm hover:shadow-md transition-all flex items-start group">
-                            <span class="text-3xl mr-4 transform group-hover:scale-110 transition-transform drop-shadow-sm">🛣️</span>
+                        <div class="bg-slate-50 border border-slate-100 p-4 sm:p-5 rounded-xl sm:rounded-2xl flex items-start gap-3 sm:gap-4 hover:bg-slate-100 transition-colors">
+                            <span class="text-xl sm:text-2xl mt-1 drop-shadow-sm">🛣️</span>
                             <div>
-                                <h4 class="font-bold text-slate-900">Premium Access</h4>
-                                <p class="text-xs text-gray-500 mt-1">Wide 18-meter road</p>
-                            </div>
-                        </div>
-                        <div class="bg-gray-50 hover:bg-white border border-gray-100 p-5 rounded-2xl shadow-sm hover:shadow-md transition-all flex items-start group">
-                            <span class="text-3xl mr-4 transform group-hover:scale-110 transition-transform drop-shadow-sm">🛡️</span>
-                            <div>
-                                <h4 class="font-bold text-slate-900">Exclusive Lifestyle</h4>
-                                <p class="text-xs text-gray-500 mt-1">Fully gated secure society</p>
-                            </div>
-                        </div>
-                        <div class="bg-gray-50 hover:bg-white border border-gray-100 p-5 rounded-2xl shadow-sm hover:shadow-md transition-all flex items-start group">
-                            <span class="text-3xl mr-4 transform group-hover:scale-110 transition-transform drop-shadow-sm">📍</span>
-                            <div>
-                                <h4 class="font-bold text-slate-900">Prime Connectivity</h4>
-                                <p class="text-xs text-gray-500 mt-1">Just 15-min to Akshardham</p>
+                                <h4 class="font-bold text-slate-900 text-sm sm:text-base">Premium Access</h4>
+                                <p class="text-xs sm:text-sm text-slate-500 mt-1 font-light">Wide 18m road approach</p>
                             </div>
                         </div>
                     </div>
@@ -414,188 +477,144 @@
         </div>
     </section>
 
-    <section id="property-sushant" class="py-16 md:py-24 bg-gray-50 border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-on-scroll fade-in-up">
-            <div class="text-center mb-12 md:mb-16">
-                <span class="text-amber-600 font-bold tracking-widest uppercase text-xs md:text-sm">Sushant Aquapolis, NH-24</span>
-                <h2 class="text-4xl md:text-5xl font-black text-slate-900 mt-2 tracking-tight">Ultra Luxury Living</h2>
-                <p class="mt-3 text-base md:text-lg text-gray-500 max-w-2xl mx-auto">Premium 4 BHK Fully Furnished Builder Floor</p>
+    <section id="property-sushant" class="py-16 sm:py-20 md:py-32 bg-slate-900 text-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-[20rem] h-[20rem] sm:w-[40rem] sm:h-[40rem] bg-amber-900/20 rounded-full blur-[80px] sm:blur-[100px] pointer-events-none transform-gpu"></div>
+        <div class="absolute bottom-0 left-0 w-[20rem] h-[20rem] sm:w-[40rem] sm:h-[40rem] bg-slate-800/50 rounded-full blur-[80px] sm:blur-[100px] pointer-events-none transform-gpu"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 animate-on-scroll fade-in-up">
+            <div class="text-center mb-10 sm:mb-16 md:mb-20">
+                <span class="text-amber-500 font-bold tracking-widest uppercase text-[10px] sm:text-xs md:text-sm">Sushant Aquapolis, NH-24</span>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mt-2 sm:mt-4 tracking-tight">Ultra Luxury Living</h2>
+                <p class="mt-2 sm:mt-4 text-base sm:text-lg md:text-xl text-slate-400 font-light">Premium 4 BHK Fully Furnished Builder Floor</p>
             </div>
             
-            <div class="flex flex-col lg:flex-row gap-10 lg:gap-16 items-center">
-                
-                <div class="lg:w-1/2 w-full flex justify-center items-center group">
-                    <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white w-full bg-gray-200 transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.12)]">
-                        <img src="300 sq yard.jpeg" alt="300 Sq Yard Builder Floor" class="w-full h-auto max-h-[400px] md:max-h-[600px] object-cover transition-transform duration-700 group-hover:scale-105">
-                        <div class="absolute top-5 right-5 bg-slate-900/90 backdrop-blur text-amber-400 text-xs font-bold px-4 py-1.5 rounded-full uppercase shadow-lg border border-amber-400/40 tracking-wider">
+            <div class="flex flex-col lg:flex-row gap-8 sm:gap-12 lg:gap-20 items-center">
+                <div class="lg:w-1/2 w-full">
+                    <div class="relative rounded-2xl sm:rounded-[2rem] overflow-hidden shadow-2xl border-2 border-slate-700 w-full group aspect-[4/5] sm:aspect-video lg:aspect-square lg:max-w-md mx-auto gpu-accelerated">
+                        <img src="300 sq yard.jpeg" alt="300 Sq Yard Builder Floor" loading="lazy" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 opacity-90 transform-gpu">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent pointer-events-none"></div>
+                        <div class="absolute top-4 right-4 sm:top-6 sm:right-6 bg-amber-500 text-slate-900 text-[10px] sm:text-xs font-black px-3 py-1.5 sm:px-4 sm:py-2 rounded-full uppercase shadow-lg tracking-widest">
                             Ultra Luxury
+                        </div>
+                        
+                        <div class="absolute bottom-6 left-6 right-6 sm:bottom-8 sm:left-8 sm:right-8 flex justify-between items-end">
+                            <div>
+                                <span class="text-slate-300 text-xs sm:text-sm font-semibold block mb-1">Total Area</span>
+                                <span class="text-2xl sm:text-3xl font-black text-white">300 Sq. Yds</span>
+                            </div>
+                            <span class="bg-white/10 backdrop-blur-md border border-white/20 text-white text-[10px] sm:text-xs font-bold px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg">2,500 sq ft</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="lg:w-1/2 w-full">
-                    <div class="flex flex-wrap items-center gap-4 mb-8">
-                        <span class="text-4xl md:text-5xl font-black text-slate-900 w-full sm:w-auto tracking-tight">₹2.80 Crore*</span>
+                    <div class="flex flex-wrap items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
+                        <span class="text-3xl sm:text-4xl md:text-5xl font-black text-amber-400 tracking-tight">₹2.80 Crore*</span>
                         <div class="flex gap-2">
-                            <span class="bg-white border border-gray-200 text-slate-800 text-xs font-bold px-4 py-1.5 rounded-full shadow-sm">Ready to Move</span>
-                            <span class="bg-amber-50 border border-amber-200 text-amber-900 text-xs font-bold px-4 py-1.5 rounded-full shadow-sm">GDA-Approved</span>
+                            <span class="bg-slate-800 border border-slate-700 text-white text-[10px] sm:text-xs font-bold px-3 py-1.5 sm:px-4 sm:py-2 rounded-full">Ready to Move</span>
+                            <span class="bg-amber-900/30 border border-amber-500/30 text-amber-400 text-[10px] sm:text-xs font-bold px-3 py-1.5 sm:px-4 sm:py-2 rounded-full">GDA-Approved</span>
                         </div>
                     </div>
 
-                    <p class="text-gray-600 text-base md:text-lg mb-8 leading-relaxed">
-                        Step into a world of elegance with this expansive <strong class="text-slate-900">2,500 sq. ft. (300 Sq. Yards)</strong> fully furnished 4 BHK builder floor. Situated in the prestigious, low-density gated community of Sushant Aquapolis.
+                    <p class="text-slate-300 text-base sm:text-lg md:text-xl mb-8 sm:mb-10 leading-relaxed font-light">
+                        Step into a world of elegance with this expansive, fully furnished 4 BHK builder floor. Situated in the prestigious, low-density gated community of Sushant Aquapolis, designed for the absolute elite.
                     </p>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5 mb-10 text-gray-800">
-                        <div class="flex items-center bg-white hover:bg-gray-50 border border-gray-100 p-5 rounded-2xl shadow-sm hover:shadow-md transition-all">
-                            <span class="text-4xl mr-4 drop-shadow-sm">🛋️</span>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-8 sm:mb-10">
+                        <div class="bg-slate-800/50 border border-slate-700 p-4 sm:p-5 rounded-xl sm:rounded-2xl flex items-start gap-3 sm:gap-4 hover:bg-slate-800 transition-colors">
+                            <span class="text-2xl sm:text-3xl drop-shadow-sm">🛋️</span>
                             <div>
-                                <h4 class="font-bold text-slate-900 text-sm">Fully Furnished</h4>
-                                <p class="text-xs text-gray-500 mt-1">4 Bed + 4 Washrooms</p>
+                                <h4 class="font-bold text-white text-sm sm:text-base">Fully Furnished</h4>
+                                <p class="text-xs sm:text-sm text-slate-400 mt-1 font-light">4 Bed + 4 Washrooms</p>
                             </div>
                         </div>
-                        <div class="flex items-center bg-white hover:bg-gray-50 border border-gray-100 p-5 rounded-2xl shadow-sm hover:shadow-md transition-all">
-                            <span class="text-4xl mr-4 drop-shadow-sm">🛣️</span>
+                        <div class="bg-slate-800/50 border border-slate-700 p-4 sm:p-5 rounded-xl sm:rounded-2xl flex items-start gap-3 sm:gap-4 hover:bg-slate-800 transition-colors">
+                            <span class="text-2xl sm:text-3xl drop-shadow-sm">🛣️</span>
                             <div>
-                                <h4 class="font-bold text-slate-900 text-sm">Premium Access</h4>
-                                <p class="text-xs text-gray-500 mt-1">Wide 9-meter approach road</p>
+                                <h4 class="font-bold text-white text-sm sm:text-base">Premium Access</h4>
+                                <p class="text-xs sm:text-sm text-slate-400 mt-1 font-light">9m wide approach road</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="bg-gradient-to-br from-amber-400 to-amber-600 rounded-3xl p-6 md:p-8 mb-10 shadow-xl text-slate-900 relative overflow-hidden transform hover:-translate-y-1 transition-all duration-300">
-                        <h4 class="font-bold text-slate-900 text-xl flex items-center mb-2 relative z-10">
-                            <span class="mr-2">💰</span> Flexible Payment Plan
-                        </h4>
-                        <p class="text-slate-900/80 text-sm mb-6 font-medium relative z-10">Hassle-free home loan financing is available instantly.</p>
-                        <div class="flex justify-between text-base border-b border-slate-900/20 pb-3 mb-3 relative z-10">
-                            <span class="font-bold">Pay Now (Down Payment)</span>
-                            <span class="font-black text-xl">30%</span>
-                        </div>
-                        <div class="flex justify-between text-base items-center relative z-10">
-                            <span class="font-bold">Pay Later (Upon Possession)</span>
-                            <span class="font-black text-xl">70%</span>
-                        </div>
-                    </div>
-
-                    <button onclick="openPopup('Sushant Aquapolis')" class="w-full sm:w-auto bg-slate-900 hover:bg-black text-white font-bold py-4 px-10 rounded-xl transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 text-lg block text-center">
-                        Schedule a Walkthrough
+                    <button onclick="openPopup('Sushant Aquapolis')" class="w-full sm:w-auto bg-white hover:bg-slate-200 text-slate-900 font-bold py-3.5 px-6 sm:py-4 sm:px-10 rounded-xl transition-all duration-300 shadow-xl transform-gpu hover:-translate-y-1 hover:scale-[1.02] text-sm sm:text-lg text-center flex justify-center items-center gap-2">
+                        Schedule a Walkthrough 
                     </button>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="property-akj" class="py-16 md:py-24 bg-white relative overflow-hidden">
-        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-72 md:w-96 h-72 md:h-96 rounded-full bg-purple-100/50 opacity-70 blur-3xl"></div>
-        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-72 md:w-96 h-72 md:h-96 rounded-full bg-indigo-100/50 opacity-70 blur-3xl"></div>
+    <section id="property-akj" class="py-16 sm:py-20 md:py-32 bg-slate-50 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 sm:w-96 sm:h-96 rounded-full bg-purple-200/50 blur-[60px] sm:blur-[80px] pointer-events-none transform-gpu"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 sm:w-96 sm:h-96 rounded-full bg-indigo-200/50 blur-[60px] sm:blur-[80px] pointer-events-none transform-gpu"></div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 animate-on-scroll fade-in-up">
-            <div class="text-center mb-12 md:mb-16">
-                <span class="text-purple-600 font-bold tracking-widest uppercase text-xs md:text-sm">Jaipuria Sunrise Township, NH-24</span>
-                <h2 class="text-4xl md:text-5xl font-black text-slate-900 mt-2 tracking-tight">AKJ Flora Homez</h2>
-                <p class="mt-4 text-base md:text-lg text-gray-500 max-w-2xl mx-auto">A Bold New Era of Luxury & Smart Living</p>
+            <div class="text-center mb-10 sm:mb-16 md:mb-20">
+                <span class="text-purple-600 font-bold tracking-widest uppercase text-[10px] sm:text-xs md:text-sm">Jaipuria Sunrise Township, NH-24</span>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mt-2 sm:mt-4 tracking-tight">AKJ Flora Homez</h2>
+                <p class="mt-2 sm:mt-4 text-base sm:text-lg md:text-xl text-slate-500 font-light max-w-2xl mx-auto">A Bold New Era of Luxury & Smart Living</p>
             </div>
             
-            <div class="flex flex-col lg:flex-row gap-10 lg:gap-16">
-                <div class="lg:w-1/2 w-full order-2 lg:order-1">
-                    <div class="flex flex-wrap items-center gap-3 mb-8">
-                        <span class="bg-gradient-to-r from-purple-50 to-white text-purple-800 text-xs md:text-sm font-bold px-4 py-1.5 rounded-full border border-purple-200 shadow-sm">100% RCC MIVAN Tech</span>
-                        <span class="bg-gradient-to-r from-indigo-50 to-white text-indigo-800 text-xs md:text-sm font-bold px-4 py-1.5 rounded-full border border-indigo-200 shadow-sm">22 Floors High-Rise</span>
+            <div class="flex flex-col lg:flex-row gap-8 sm:gap-12 lg:gap-20">
+                <div class="lg:w-1/2 w-full order-2 lg:order-1 flex flex-col justify-center">
+                    <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-4">
+                        <span class="bg-white text-purple-800 text-[10px] sm:text-xs md:text-sm font-bold px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border border-purple-200 shadow-sm">100% RCC MIVAN</span>
+                        <span class="bg-white text-indigo-800 text-[10px] sm:text-xs md:text-sm font-bold px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border border-indigo-200 shadow-sm">22 Floors High-Rise</span>
                     </div>
 
-                    <p class="text-gray-600 text-base md:text-lg mb-8 leading-relaxed">
+                    <div class="mb-6 sm:mb-8 inline-block bg-purple-100 text-purple-800 border border-purple-300 px-3 py-1.5 sm:px-4 sm:py-1.5 rounded-lg text-xs sm:text-sm font-bold animate-urgent transform-gpu">
+                        ⏰ Launch Offer: Complete Smart Home Setup FREE
+                    </div>
+
+                    <p class="text-slate-600 text-base sm:text-lg md:text-xl mb-8 sm:mb-10 leading-relaxed font-light">
                         Where refined living blends seamlessly with unmatched comfort. Ideally situated <strong class="text-slate-900">bang on NH-24 opposite Manipal Hospital</strong>, this premium high-rise offers a futuristic lifestyle with state-of-the-art smart home automation.
                     </p>
 
-                    <div class="bg-gradient-to-br from-indigo-950 via-purple-950 to-slate-900 rounded-3xl shadow-2xl p-6 md:p-8 text-white mb-10 border border-purple-800/50 hover:shadow-purple-900/40 hover:-translate-y-1 transition-all duration-300">
-                        <h3 class="text-xl md:text-2xl font-bold mb-6 flex items-center text-purple-300">
-                            <span class="mr-3 text-3xl">🧠</span> Next-Gen Smart Automation
+                    <div class="bg-slate-900 rounded-2xl sm:rounded-[2rem] shadow-2xl p-6 sm:p-8 text-white mb-8 sm:mb-10 relative overflow-hidden transform-gpu hover:-translate-y-1 transition-all duration-300">
+                        <div class="absolute right-0 top-0 w-24 h-24 sm:w-32 sm:h-32 bg-purple-500/20 rounded-full blur-2xl pointer-events-none"></div>
+                        <h3 class="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-6 flex items-center text-white">
+                            <span class="mr-2 sm:mr-3 text-2xl sm:text-3xl">🧠</span> Smart Automation
                         </h3>
-                        <ul class="space-y-4 text-sm md:text-base text-gray-300">
-                            <li class="flex items-start"><span class="text-purple-400 mr-3 mt-0.5 text-lg">✦</span> Main Door Lock Automation (Keyless Entry)</li>
-                            <li class="flex items-start"><span class="text-purple-400 mr-3 mt-0.5 text-lg">✦</span> Visual Display Unit for effortless monitoring</li>
-                            <li class="flex items-start"><span class="text-purple-400 mr-3 mt-0.5 text-lg">✦</span> Complete Living Room Automation Setup</li>
-                            <li class="flex items-start"><span class="text-purple-400 mr-3 mt-0.5 text-lg">✦</span> Smart Motion Sensors in Kitchen & Washrooms</li>
+                        <ul class="space-y-3 sm:space-y-4 text-slate-300 font-light text-sm sm:text-base">
+                            <li class="flex items-start"><span class="text-purple-400 mr-2 sm:mr-3 text-base sm:text-lg font-bold">✓</span> Keyless Entry & Biometric Locks</li>
+                            <li class="flex items-start"><span class="text-purple-400 mr-2 sm:mr-3 text-base sm:text-lg font-bold">✓</span> Visual Display Unit & Intercom</li>
+                            <li class="flex items-start"><span class="text-purple-400 mr-2 sm:mr-3 text-base sm:text-lg font-bold">✓</span> Smart Living Room Setup via App</li>
                         </ul>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-4 md:gap-5 mb-8 lg:mb-0">
-                        <div class="bg-purple-50/50 hover:bg-purple-100/50 transition-colors p-4 md:p-5 rounded-2xl border border-purple-100 flex flex-col justify-center text-center shadow-sm">
-                            <span class="text-3xl md:text-4xl mb-2 drop-shadow-sm">🏊‍♂️</span>
-                            <h4 class="font-bold text-sm md:text-base text-slate-900 mt-1">Exclusive Club</h4>
-                            <p class="text-xs text-gray-500 mt-1">Modern pool & gym</p>
-                        </div>
-                        <div class="bg-purple-50/50 hover:bg-purple-100/50 transition-colors p-4 md:p-5 rounded-2xl border border-purple-100 flex flex-col justify-center text-center shadow-sm">
-                            <span class="text-3xl md:text-4xl mb-2 drop-shadow-sm">✨</span>
-                            <h4 class="font-bold text-sm md:text-base text-slate-900 mt-1">Premium Finishes</h4>
-                            <p class="text-xs text-gray-500 mt-1">Vitrified tiles & wood</p>
-                        </div>
                     </div>
                 </div>
 
                 <div class="lg:w-1/2 w-full order-1 lg:order-2">
-                    <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-gray-50 w-full bg-gray-200 mb-8 md:mb-10 aspect-video group">
-                        <img src="Gemini_Generated_Image_r49b2lr49b2lr49b.png" alt="AKJ Flora Homez Building Elevation" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                        <div class="absolute bottom-5 left-5 bg-white/95 backdrop-blur text-slate-900 text-xs font-bold px-4 py-1.5 rounded-full shadow-lg tracking-wider">
-                            Opp. Manipal Hospital
+                    <div class="relative rounded-2xl sm:rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white w-full bg-slate-200 mb-8 sm:mb-10 aspect-video group gpu-accelerated">
+                        <img src="Gemini_Generated_Image_r49b2lr49b2lr49b.png" alt="AKJ Flora Homez" loading="lazy" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 transform-gpu">
+                        <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 bg-white/90 backdrop-blur text-slate-900 text-[10px] sm:text-xs font-black px-3 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-lg tracking-widest uppercase">
+                            7000/sq.ft.
                         </div>
                     </div>
 
-                    <h3 class="text-lg font-bold text-slate-900 mb-4 tracking-wide uppercase">Available Configurations</h3>
+                    <h3 class="text-xs sm:text-sm font-bold text-slate-400 mb-3 sm:mb-4 uppercase tracking-widest">Available Configurations</h3>
                     
-                    <div class="block sm:hidden space-y-3 mb-6">
-                        <div class="bg-white p-4 rounded-xl border border-gray-150 shadow-xs flex justify-between items-center">
-                            <span class="text-sm font-bold text-gray-900">2 BHK + 2 Toilets</span><span class="text-xs font-semibold bg-gray-100 text-gray-700 px-2.5 py-1 rounded-md">1,215 Sq. Ft.</span>
+                    <div class="space-y-2 sm:space-y-3 mb-6 sm:mb-8">
+                        <div class="bg-white p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200 shadow-sm flex justify-between items-center hover:border-purple-300 transition-colors">
+                            <span class="text-xs sm:text-sm md:text-base font-bold text-slate-900">2 BHK + 2 T</span>
+                            <span class="text-[10px] sm:text-xs md:text-sm font-bold bg-slate-100 text-slate-700 px-2 py-1 sm:px-3 sm:py-1 rounded-lg">1,215 Sq. Ft.</span>
                         </div>
-                        <div class="bg-white p-4 rounded-xl border border-gray-150 shadow-xs flex justify-between items-center">
-                            <span class="text-sm font-bold text-gray-900">3 BHK + 3 Toilets</span><span class="text-xs font-semibold bg-gray-100 text-gray-700 px-2.5 py-1 rounded-md">1,650 Sq. Ft.</span>
+                        <div class="bg-purple-50 p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-purple-100 shadow-sm flex justify-between items-center">
+                            <span class="text-xs sm:text-sm md:text-base font-black text-purple-900">3 BHK + 3 T</span>
+                            <span class="text-[10px] sm:text-xs md:text-sm font-black bg-purple-600 text-white px-2 py-1 sm:px-3 sm:py-1 rounded-lg shadow-sm">1,650 Sq. Ft.</span>
                         </div>
-                        <div class="bg-purple-50/30 p-4 rounded-xl border border-purple-150 shadow-xs flex justify-between items-center">
-                            <span class="text-sm font-black text-purple-900">4 BHK + 4 Toilets</span><span class="text-xs font-bold bg-purple-600 text-white px-2.5 py-1 rounded-md">2,550 Sq. Ft.</span>
+                        <div class="space-y-2 sm:space-y-3 mb-6 sm:mb-8">
+                        <div class="bg-white p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200 shadow-sm flex justify-between items-center hover:border-purple-300 transition-colors">
+                            <span class="text-xs sm:text-sm md:text-base font-bold text-slate-900">4 BHK + 4 T</span>
+                            <span class="text-[10px] sm:text-xs md:text-sm font-bold bg-slate-100 text-slate-700 px-2 py-1 sm:px-3 sm:py-1 rounded-lg">2,550 Sq. Ft.</span>
                         </div>
-                        <div class="bg-purple-50/30 p-4 rounded-xl border border-purple-150 shadow-xs flex justify-between items-center">
-                            <span class="text-sm font-black text-purple-900">4 BHK + Servant</span><span class="text-xs font-bold bg-purple-600 text-white px-2.5 py-1 rounded-md">2,650 Sq. Ft.</span>
+                        <div class="bg-purple-50 p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-purple-100 shadow-sm flex justify-between items-center">
+                            <span class="text-xs sm:text-sm md:text-base font-black text-purple-900">4 BHK + 4 T + ST ROOM</span>
+                            <span class="text-[10px] sm:text-xs md:text-sm font-black bg-purple-600 text-white px-2 py-1 sm:px-3 sm:py-1 rounded-lg shadow-sm">2,650 Sq. Ft.</span>
                         </div>
                     </div>
 
-                    <div class="hidden sm:block overflow-hidden bg-white rounded-2xl shadow-sm mb-8 border border-gray-200">
-                        <table class="min-w-full text-left text-sm text-gray-700 whitespace-nowrap">
-                            <thead class="bg-slate-100 text-slate-800">
-                                <tr>
-                                    <th class="px-5 py-4 font-bold uppercase text-xs tracking-wider">Type</th>
-                                    <th class="px-5 py-4 font-bold uppercase text-xs tracking-wider">Super Area</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-100">
-                                <tr class="hover:bg-gray-50 transition-colors">
-                                    <td class="px-5 py-4.5 font-bold text-slate-900">2 BHK + 2 Toilets</td>
-                                    <td class="px-5 py-4.5 text-gray-600">1,215 Sq. Ft.</td>
-                                </tr>
-                                <tr class="hover:bg-gray-50 transition-colors">
-                                    <td class="px-5 py-4.5 font-bold text-slate-900">3 BHK + 3 Toilets</td>
-                                    <td class="px-5 py-4.5 text-gray-600">1,650 Sq. Ft.</td>
-                                </tr>
-                                <tr class="bg-purple-50/40 hover:bg-purple-50/80 transition-colors">
-                                    <td class="px-5 py-4.5 font-black text-purple-900">4 BHK + 4 Toilets</td>
-                                    <td class="px-5 py-4.5 text-purple-800 font-medium">2,550 Sq. Ft.</td>
-                                </tr>
-                                <tr class="bg-purple-50/40 hover:bg-purple-50/80 transition-colors">
-                                    <td class="px-5 py-4.5 font-black text-purple-900">4 BHK + Servant</td>
-                                    <td class="px-5 py-4.5 text-purple-800 font-medium">2,650 Sq. Ft.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="flex flex-wrap gap-2 text-xs md:text-sm font-semibold text-gray-700 mb-8">
-                        <span class="bg-gray-50 px-3.5 py-1.5 rounded-xl border border-gray-200 shadow-sm">📍 0 Min: Manipal</span>
-                        <span class="bg-gray-50 px-3.5 py-1.5 rounded-xl border border-gray-200 shadow-sm">📍 5 Min: ABES</span>
-                        <span class="bg-gray-50 px-3.5 py-1.5 rounded-xl border border-gray-200 shadow-sm">📍 10 Min: Sec-63</span>
-                        <span class="bg-gray-50 px-3.5 py-1.5 rounded-xl border border-gray-200 shadow-sm">📍 20 Min: Akshardham</span>
-                    </div>
-
-                    <button onclick="openPopup('AKJ Flora Homez')" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-purple-500/40 hover:-translate-y-1 block text-center text-lg">
+                    <button onclick="openPopup('AKJ Flora Homez')" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold py-3.5 sm:py-4 px-6 sm:px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-purple-500/40 text-center text-sm sm:text-lg transform-gpu hover:-translate-y-1 hover:scale-[1.02]">
                         Enquire About Flora Homez
                     </button>
                 </div>
@@ -603,124 +622,156 @@
         </div>
     </section>
 
-    <div id="contact-popup" class="fixed inset-0 z-[100] hidden items-center justify-center p-3 sm:p-4 bg-slate-950/70 backdrop-blur-sm transition-opacity opacity-0 duration-500">
-        <div class="absolute inset-0" onclick="closePopup()"></div>
+    <div id="contact-popup" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-md transition-opacity opacity-0 duration-300 gpu-accelerated">
+        <div class="absolute inset-0 cursor-pointer" onclick="closePopup()"></div>
         
-        <div id="popup-inner" class="relative bg-white rounded-3xl shadow-2xl w-full max-w-2xl p-6 md:p-10 border border-gray-100 transform scale-90 opacity-0 transition-all duration-500 max-h-[92vh] overflow-y-auto">
-            <button onclick="closePopup()" class="absolute top-4 right-4 md:top-6 md:right-6 bg-slate-100 hover:bg-rose-100 hover:text-rose-600 text-slate-500 w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold transition-colors">&times;</button>
+        <div id="popup-inner" class="relative bg-white rounded-2xl sm:rounded-[2rem] shadow-2xl w-full max-w-xl p-6 sm:p-10 border border-slate-100 transform-gpu scale-95 opacity-0 transition-all duration-300 max-h-[90vh] overflow-y-auto">
+            <button onclick="closePopup()" class="absolute top-4 right-4 sm:top-5 sm:right-5 bg-slate-100 hover:bg-slate-200 text-slate-500 w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-lg sm:text-xl font-bold transition-colors">&times;</button>
             
-            <div class="text-center mb-8 mt-2 md:mt-0">
-                <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Connect on WhatsApp instantly</h2>
-                <p class="mt-2 text-slate-500 text-sm md:text-base">Select a property below to get floor plans, brochures, or schedule a visit directly on WhatsApp.</p>
+            <div class="text-center mb-6 sm:mb-8 mt-2">
+                <h2 class="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 tracking-tight mb-1 sm:mb-2">Instant Details on WhatsApp</h2>
+                <p class="text-slate-500 text-xs sm:text-sm md:text-base font-light">Get floor plans, pricing brochures, and site visit scheduling instantly.</p>
             </div>
 
-            <form id="whatsAppForm" class="space-y-5 md:space-y-6">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6">
+            <form id="whatsAppForm" class="space-y-4 sm:space-y-5">
+                <input type="hidden" id="utm_source" name="utm_source" value="">
+                <input type="hidden" id="utm_campaign" name="utm_campaign" value="">
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                     <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-1.5">Your Full Name *</label>
-                        <input type="text" id="name" name="name" autocomplete="name" required class="w-full px-4 py-3.5 text-base border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none bg-slate-50 transition-colors hover:bg-white" placeholder="Enter your name">
+                        <label class="block text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5 sm:mb-2">Full Name *</label>
+                        <input type="text" id="name" name="name" required class="w-full px-4 py-3 sm:px-5 sm:py-4 text-sm sm:text-base font-medium border border-slate-200 rounded-xl focus:ring-2 focus:ring-slate-900 focus:border-slate-900 outline-none bg-slate-50 transition-all hover:bg-white" placeholder="Enter name">
                     </div>
                     <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-1.5">Phone Number *</label>
-                        <input type="tel" id="phone" name="phone" autocomplete="tel" required class="w-full px-4 py-3.5 text-base border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none bg-slate-50 transition-colors hover:bg-white" placeholder="Enter phone number">
+                        <label class="block text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5 sm:mb-2">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required class="w-full px-4 py-3 sm:px-5 sm:py-4 text-sm sm:text-base font-medium border border-slate-200 rounded-xl focus:ring-2 focus:ring-slate-900 focus:border-slate-900 outline-none bg-slate-50 transition-all hover:bg-white" placeholder="Enter phone">
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-bold text-slate-700 mb-1.5">Select Property *</label>
-                    <select id="propertySelect" class="w-full px-4 py-3.5 text-base border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none bg-slate-50 font-semibold text-slate-700 transition-colors hover:bg-white cursor-pointer">
-                        <option value="Novel Heights">Novel Heights (₹30L - Ready to Move)</option>
-                        <option value="Lock n key Homes">Lock n key Homes (2/3 BHK - ₹37L)</option>
-                        <option value="Crossing Republik">Crossing Republik (4 BHK - ₹1.80 Cr)</option>
-                        <option value="Sushant Aquapolis">Sushant Aquapolis (4 BHK Luxury - ₹2.80 Cr)</option>
-                        <option value="AKJ Flora Homez">AKJ Flora Homez (Smart Home 2/3/4 BHK)</option>
+                    <label class="block text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5 sm:mb-2">Select Property *</label>
+                    <select id="propertySelect" class="w-full px-4 py-3 sm:px-5 sm:py-4 text-sm sm:text-base font-bold border border-slate-200 rounded-xl focus:ring-2 focus:ring-slate-900 focus:border-slate-900 outline-none bg-slate-50 text-slate-800 transition-all cursor-pointer">
+                        <option value="Novel Heights">Novel Heights (₹30L)</option>
+                        <option value="Lock n key Homes">Lock n key Homes (₹37L+)</option>
+                        <option value="Crossing Republik">Crossing Republik (₹1.80Cr)</option>
+                        <option value="Sushant Aquapolis">Sushant Aquapolis (₹2.80Cr)</option>
+                        <option value="AKJ Flora Homez">AKJ Flora Homez</option>
+                        <option value="General Query">General Query</option>
                     </select>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-bold text-slate-700 mb-1.5">Your Query (Optional)</label>
-                    <textarea id="customMessage" rows="2" class="w-full px-4 py-3.5 text-base border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none bg-slate-50 transition-colors hover:bg-white" placeholder="E.g., I want to schedule a visit tomorrow."></textarea>
+                    <label class="block text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5 sm:mb-2">Query (Optional)</label>
+                    <textarea id="customMessage" rows="2" class="w-full px-4 py-3 sm:px-5 sm:py-4 text-sm sm:text-base font-medium border border-slate-200 rounded-xl focus:ring-2 focus:ring-slate-900 focus:border-slate-900 outline-none bg-slate-50 transition-all hover:bg-white" placeholder="E.g., Share brochure..."></textarea>
                 </div>
 
-                <button type="submit" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-extrabold py-4 px-6 rounded-xl shadow-lg transition duration-300 flex items-center justify-center gap-3 text-base sm:text-lg transform hover:-translate-y-1">
-                    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.411 0 11.981 0c3.184.001 6.177 1.242 8.426 3.496 2.249 2.254 3.487 5.253 3.485 8.441-.004 6.621-5.355 11.97-11.931 11.97h-.007c-2.012-.002-3.992-.511-5.74-1.48L0 24zm5.821-3.466l.379.225c1.745 1.036 3.777 1.583 5.769 1.585h.005c5.54 0 10.047-4.484 10.05-10.003.002-2.673-1.033-5.187-2.915-7.072-1.882-1.884-4.389-2.92-7.067-2.922-5.545 0-10.054 4.485-10.058 10.006-.001 2.067.538 4.084 1.56 5.867l.247.428-1.032 3.766 3.862-1.01zm11.365-6.83c-.347-.173-2.054-1.013-2.371-1.129-.317-.116-.549-.174-.78.174-.231.347-.896 1.129-1.097 1.36-.201.231-.402.26-.749.087-.347-.173-1.464-.54-2.788-1.72-1.03-.919-1.724-2.053-1.926-2.399-.201-.347-.021-.535.153-.707.156-.155.347-.405.52-.607.174-.203.231-.347.347-.578.116-.231.058-.434-.029-.607-.087-.173-.78-1.88-1.069-2.575-.282-.677-.567-.585-.78-.596-.201-.01-.433-.01-.664-.01-.231 0-.607.087-.924.434-.317.347-1.213 1.187-1.213 2.893 0 1.706 1.242 3.353 1.415 3.584.173.231 2.444 3.732 5.922 5.235.827.357 1.472.571 1.975.732.831.264 1.587.227 2.184.138.665-.1 2.054-.839 2.343-1.65.289-.812.289-1.506.203-1.65-.087-.145-.317-.231-.664-.405z"/></svg>
-                    Send Details to WhatsApp
+                <button type="submit" class="w-full bg-[#075E54] hover:bg-[#075E54] text-white font-black py-3.5 sm:py-4 px-6 rounded-xl shadow-lg shadow-green-500/30 transition duration-300 flex items-center justify-center gap-2 sm:gap-3 text-base sm:text-lg transform-gpu hover:-translate-y-1 mt-2 sm:mt-4">
+                    <svg class="w-5 h-5 sm:w-6 sm:h-6 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.411 0 11.981 0c3.184.001 6.177 1.242 8.426 3.496 2.249 2.254 3.487 5.253 3.485 8.441-.004 6.621-5.355 11.97-11.931 11.97h-.007c-2.012-.002-3.992-.511-5.74-1.48L0 24zm5.821-3.466l.379.225c1.745 1.036 3.777 1.583 5.769 1.585h.005c5.54 0 10.047-4.484 10.05-10.003.002-2.673-1.033-5.187-2.915-7.072-1.882-1.884-4.389-2.92-7.067-2.922-5.545 0-10.054 4.485-10.058 10.006-.001 2.067.538 4.084 1.56 5.867l.247.428-1.032 3.766 3.862-1.01zm11.365-6.83c-.347-.173-2.054-1.013-2.371-1.129-.317-.116-.549-.174-.78.174-.231.347-.896 1.129-1.097 1.36-.201.231-.402.26-.749.087-.347-.173-1.464-.54-2.788-1.72-1.03-.919-1.724-2.053-1.926-2.399-.201-.347-.021-.535.153-.707.156-.155.347-.405.52-.607.174-.203.231-.347.347-.578.116-.231.058-.434-.029-.607-.087-.173-.78-1.88-1.069-2.575-.282-.677-.567-.585-.78-.596-.201-.01-.433-.01-.664-.01-.231 0-.607.087-.924.434-.317.347-1.213 1.187-1.213 2.893 0 1.706 1.242 3.353 1.415 3.584.173.231 2.444 3.732 5.922 5.235.827.357 1.472.571 1.975.732.831.264 1.587.227 2.184.138.665-.1 2.054-.839 2.343-1.65.289-.812.289-1.506.203-1.65-.087-.145-.317-.231-.664-.405z"/></svg>
+                    Send to WhatsApp
                 </button>
             </form>
         </div>
     </div>
 
-    <footer class="bg-slate-950 py-14 border-t border-slate-900">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-400">
-            <h2 class="text-2xl font-black text-white mb-2 tracking-widest">TRUE INVEST</h2>
-            <p class="mb-5 text-sm font-light">Your trusted partner in Real Estate.</p>
-            <div class="inline-flex items-center justify-center bg-slate-900 rounded-full px-6 py-2.5 mb-8 border border-slate-800 shadow-inner">
-                <span class="mr-3 text-base">📞</span> <span class="font-bold text-white tracking-wide text-sm sm:text-base">93101 27880</span>
+    <footer class="bg-slate-950 pt-12 pb-24 sm:pt-16 sm:pb-16 border-t border-slate-900 gpu-accelerated">
+        <div class="max-w-7xl mx-auto px-4 sm:px-5 text-center flex flex-col items-center">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 bg-slate-900 rounded-xl flex items-center justify-center mb-4 sm:mb-6">
+                <span class="text-white text-xl sm:text-2xl font-black leading-none">T</span>
             </div>
-            <p class="text-xs text-slate-600">© 2026 True Invest. All rights reserved.</p>
+            <h2 class="text-xl sm:text-2xl font-black text-white mb-1 sm:mb-2 tracking-widest">TRUE INVEST</h2>
+            <p class="mb-6 sm:mb-8 text-xs sm:text-sm font-light text-slate-400">Your trusted partner in Real Estate.</p>
+            
+            <a href="tel:9310127880" class="inline-flex items-center justify-center bg-slate-900 hover:bg-slate-800 rounded-full px-8 py-3 mb-10 border border-slate-800 shadow-inner transition-colors group">
+                <span class="mr-3 text-xl group-hover:scale-110 transition-transform transform-gpu">📞</span> 
+                <span class="font-black text-white tracking-widest text-lg">93101 27880</span>
+            </a>
+
+            <p class="text-[10px] sm:text-xs text-slate-600 font-semibold tracking-wider uppercase">© 2026 True Invest. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        // --- 1. SMART AUTO-FILL POPUP LOADER & 5-SEC AUTOMATIC TRIGGER ---
-        window.addEventListener('load', () => {
-            applySmartAutofill(); 
+        // --- 1. SMART EXIT-INTENT ENGINE (MEMORY SAFE) ---
+        let exitPopupTriggered = sessionStorage.getItem('exitPopupTriggered');
+        
+        const handleMouseLeave = (e) => {
+            if (e.clientY < 0 && !exitPopupTriggered) {
+                openPopup('General');
+                sessionStorage.setItem('exitPopupTriggered', 'true');
+                exitPopupTriggered = true;
+                document.removeEventListener('mouseleave', handleMouseLeave); // Save memory
+            }
+        };
+        document.addEventListener('mouseleave', handleMouseLeave);
 
-            // Trigger popup exactly after 5 seconds on load/refresh
-            setTimeout(() => {
-                const popup = document.getElementById('contact-popup');
-                if (popup.classList.contains('hidden')) {
-                    openPopup('General');
-                }
-            }, 5000); 
-        });
+        let lastScrollY = window.scrollY;
+        let ticking = false;
 
-        function applySmartAutofill() {
+        window.addEventListener('scroll', () => {
+            lastScrollY = window.scrollY;
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    if (window.innerWidth < 768 && !exitPopupTriggered) {
+                        if (lastScrollY > window.scrollY + 50 && window.scrollY < 200) {
+                            openPopup('General');
+                            sessionStorage.setItem('exitPopupTriggered', 'true');
+                            exitPopupTriggered = true;
+                        }
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }, { passive: true });
+
+        // --- 2. STORAGE & UTM PARSING ---
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if(urlParams.has('utm_source')) document.getElementById('utm_source').value = urlParams.get('utm_source');
+            if(urlParams.has('utm_campaign')) document.getElementById('utm_campaign').value = urlParams.get('utm_campaign');
+            
             const cachedName = localStorage.getItem('trueInvest_clientName');
             const cachedPhone = localStorage.getItem('trueInvest_clientPhone');
             if (cachedName) document.getElementById('name').value = cachedName;
             if (cachedPhone) document.getElementById('phone').value = cachedPhone;
-        }
+        });
 
-        // --- 2. Ultra-Smooth Native Intersection Observer Script ---
-        const scrollObserverOptions = { root: null, rootMargin: '0px', threshold: 0.12 };
+        // --- 3. HIGH-PERFORMANCE INTERSECTION OBSERVER ---
         const scrollObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+                    // Use requestAnimationFrame to ensure smooth paint
+                    window.requestAnimationFrame(() => {
+                        entry.target.classList.add('visible');
+                    });
                     observer.unobserve(entry.target); 
                 }
             });
-        }, scrollObserverOptions);
+        }, { root: null, rootMargin: '0px', threshold: 0.1 }); // Adjusted threshold for smoother trigger
 
-        document.querySelectorAll('.animate-on-scroll').forEach((element) => {
-            scrollObserver.observe(element);
-        });
+        document.querySelectorAll('.animate-on-scroll').forEach(el => scrollObserver.observe(el));
 
-        // --- 3. Modal Architecture Dialog Scripts ---
+        // --- 4. POPUP CONTROL LAYER ---
         function openPopup(propertyName) {
             const popup = document.getElementById('contact-popup');
             const popupInner = document.getElementById('popup-inner');
             const select = document.getElementById('propertySelect');
             
             if (select) {
-                if (propertyName && propertyName !== 'General') {
-                    select.value = propertyName;
-                } else {
-                    select.selectedIndex = 0; 
-                }
+                select.value = (propertyName && propertyName !== 'General') ? propertyName : "General Query";
             }
-
-            applySmartAutofill(); 
 
             popup.classList.remove('hidden');
             popup.classList.add('flex'); 
             
-            setTimeout(() => {
-                popup.classList.remove('opacity-0');
-                popupInner.classList.remove('scale-90', 'opacity-0');
-                popupInner.classList.add('scale-100', 'opacity-100');
-            }, 20);
+            // Force hardware acceleration rendering before animating
+            window.requestAnimationFrame(() => {
+                setTimeout(() => {
+                    popup.classList.remove('opacity-0');
+                    popupInner.classList.remove('scale-95', 'opacity-0');
+                    popupInner.classList.add('scale-100', 'opacity-100');
+                }, 10); 
+            });
         }
 
         function closePopup() {
@@ -729,119 +780,76 @@
 
             popup.classList.add('opacity-0');
             popupInner.classList.remove('scale-100', 'opacity-100');
-            popupInner.classList.add('scale-90', 'opacity-0');
+            popupInner.classList.add('scale-95', 'opacity-0');
             
             setTimeout(() => {
                 popup.classList.add('hidden');
                 popup.classList.remove('flex');
-            }, 400); 
+            }, 300); 
         }
 
-        // --- 4. WhatsApp Event Handler + CRITICAL SILENT EMAIL BACKUP & LOCAL STORAGE ---
-        document.getElementById('whatsAppForm').addEventListener('submit', async function(e) {
+        // --- 5. DATA CONNECTIVITY ENGINE (CRM & WHATSAPP) ---
+        document.getElementById('whatsAppForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const name = document.getElementById('name').value;
             const phone = document.getElementById('phone').value;
             const property = document.getElementById('propertySelect').value;
             const userMessage = document.getElementById('customMessage').value;
+            const utm_source = document.getElementById('utm_source').value || 'organic';
+            const utm_campaign = document.getElementById('utm_campaign').value || 'direct';
             const timestamp = new Date().toISOString();
             
-            // Step A: Save Client Metadata into device context for next visit Auto-Fill feature
             localStorage.setItem('trueInvest_clientName', name);
             localStorage.setItem('trueInvest_clientPhone', phone);
 
-            // Step B: Backup Storage Location 1 (Main Dashboard Local Leads Database Array)
             try {
-                let mainLeadsList = JSON.parse(localStorage.getItem('trueInvest_mainLeads') || '[]');
-                mainLeadsList.push({ name, phone, property, query: userMessage, time: timestamp, channel: 'Main Database' });
-                localStorage.setItem('trueInvest_mainLeads', JSON.stringify(mainLeadsList));
-            } catch (err) { console.error("Backup 1 Fail-safe intercepted:", err); }
+                let leads = JSON.parse(localStorage.getItem('trueInvest_leads') || '[]');
+                leads.push({ name, phone, property, query: userMessage, time: timestamp, utm_source });
+                localStorage.setItem('trueInvest_leads', JSON.stringify(leads));
+            } catch (err) { console.warn("Storage restricted"); }
 
-            // Step C: Backup Storage Location 2 (Independent Secondary System Archive Log String)
             try {
-                let backupLeadsList = JSON.parse(localStorage.getItem('trueInvest_backupLeads') || '[]');
-                backupLeadsList.push({ name, phone, property, query: userMessage, time: timestamp, channel: 'Secondary Mirror Log Archive' });
-                localStorage.setItem('trueInvest_backupLeads', JSON.stringify(backupLeadsList));
-            } catch (err) { console.error("Backup 2 Fail-safe intercepted:", err); }
-
-            // Step D: Secret Silent Email Backup (No Page Reload, Client won't know)
-            // Added modern async/await to guarantee dispatch processing before browser navigates
-            try {
-                await fetch("https://formsubmit.co/ajax/trueinvest.house@gmail.com", {
+                fetch("https://formsubmit.co/ajax/trueinvest.house@gmail.com", {
                     method: "POST",
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                     body: JSON.stringify({
                         _subject: "🔥 NEW WEBSITE LEAD: " + property,
-                        Name: name,
-                        Phone: phone,
-                        Property_Selected: property,
-                        User_Query: userMessage || "No additional query provided",
-                        _captcha: "false" 
+                        Name: name, Phone: phone, Property_Selected: property, User_Query: userMessage, UTM_Source: utm_source, _captcha: "false" 
                     })
                 });
-            } catch(err) {
-                console.error("Email backup dispatch error intercepted:", err);
-            }
+            } catch(err) {}
 
-            // Step E: Proceeding with original WhatsApp connectivity logic flow
+            try {
+                fetch("https://hook.trueinvest.in/api/webhook/new-lead", {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, mobile: phone, project: property, source: utm_source, campaign: utm_campaign, assigned_to: "Sunny" })
+                });
+            } catch(err) {}
+
             const whatsappNumber = "919310127880"; 
-            let textMessage = `Hello True Invest,%0A%0AI am interested in *${encodeURIComponent(property)}*. Here are my details:%0A%0A`;
-            textMessage += `*Name:* ${encodeURIComponent(name)}%0A`;
-            textMessage += `*Phone:* ${encodeURIComponent(phone)}%0A`;
+            let textMessage = `Hello True Invest,%0A%0AI am interested in *${encodeURIComponent(property)}*. Here are my details:%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Phone:* ${encodeURIComponent(phone)}%0A`;
+            if(property === "Novel Heights") textMessage += `*Code:* NOVEL%0A`;
+            if(userMessage.trim()) textMessage += `*Query:* ${encodeURIComponent(userMessage)}%0A`;
+            textMessage += `%0APlease share the details.`;
             
-            if(property === "Novel Heights") {
-                textMessage += `%0A*Code:* NOVEL%0A`;
-            }
-            
-            if(userMessage.trim() !== "") {
-                textMessage += `*Query:* ${encodeURIComponent(userMessage)}%0A`;
-            }
-            
-            textMessage += `%0APlease share the floor plan and pricing brochure.`;
-            
-            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${textMessage}`;
-            window.open(whatsappUrl, '_blank');
-            
+            window.open(`https://wa.me/${whatsappNumber}?text=${textMessage}`, '_blank', 'noopener,noreferrer');
             closePopup(); 
         });
 
-        // --- 5. High-FPS Cinematic Hero Carousel Rotator ---
+        // --- 6. MEMORY-SAFE 60FPS HERO CAROUSEL ROTATOR ---
         document.addEventListener("DOMContentLoaded", () => {
             const heroTitle = document.getElementById('hero-title');
             const heroDesc = document.getElementById('hero-desc');
 
-            heroTitle.style.transition = 'opacity 0.4s ease-in-out, transform 0.4s ease-in-out';
-            heroDesc.style.transition = 'opacity 0.4s ease-in-out, transform 0.4s ease-in-out';
-
             const carouselData = [
-                {
-                    title: "Find Your Perfect Home <br class='hidden sm:block'>or Investment",
-                    desc: "Discover premium builder floors, high-ROI apartments, and futuristic smart homes across NCR."
-                },
-                {
-                    title: "Novel Heights",
-                    desc: "₹30 Lakh - Exclusively designed 2 BHK for maximum privacy & stable rental returns."
-                },
-                {
-                    title: "Lock n key Homes",
-                    desc: "Premium 2 & 3 BHK Builder Floors - Vastu compliant with 3-side open layouts."
-                },
-                {
-                    title: "Crossing Republik",
-                    desc: "₹1.80 Crore - Premium 4 BHK with seamless cross ventilation near NH-24."
-                },
-                {
-                    title: "Sushant Aquapolis",
-                    desc: "₹2.80 Crore - Ultra Luxury 4 BHK Fully Furnished Builder Floor in Ghaziabad."
-                },
-                {
-                    title: "AKJ Flora Homez",
-                    desc: "Futuristic Smart Homes with 100% RCC MIVAN Tech opposite Manipal Hospital."
-                }
+                { title: "Find Your Perfect Home <br class='hidden sm:block'>or Investment", desc: "Discover premium builder floors, high-ROI apartments, and futuristic smart homes across NCR." },
+                { title: "Novel Heights", desc: "₹30 Lakh - Exclusively designed 2 BHK for maximum privacy & stable rental returns." },
+                { title: "Lock n key Homes", desc: "Premium 2 & 3 BHK Builder Floors - Vastu compliant with 3-side open layouts." },
+                { title: "Crossing Republik", desc: "₹1.80 Crore - Premium 4 BHK with seamless cross ventilation near NH-24." },
+                { title: "Sushant Aquapolis", desc: "₹2.80 Crore - Ultra Luxury 4 BHK Fully Furnished Builder Floor in Ghaziabad." },
+                { title: "AKJ Flora Homez", desc: "Futuristic Smart Homes with 100% RCC MIVAN Tech opposite Manipal Hospital." }
             ];
 
             let currentIndex = 0;
@@ -850,38 +858,47 @@
             setInterval(() => {
                 let nextIndex = (currentIndex + 1) % totalSlides;
 
+                // hardware accelerated transform for text
                 heroTitle.style.opacity = '0';
-                heroTitle.style.transform = 'translateY(15px)';
+                heroTitle.style.transform = 'translateY(10px) translate3d(0,0,0)';
                 heroDesc.style.opacity = '0';
-                heroDesc.style.transform = 'translateY(15px)';
+                heroDesc.style.transform = 'translateY(10px) translate3d(0,0,0)';
 
                 const currentBg = document.getElementById(`hero-bg-${currentIndex}`);
                 const nextBg = document.getElementById(`hero-bg-${nextIndex}`);
+                
+                if (nextBg) {
+                    const nextVid = nextBg.querySelector('video');
+                    if (nextVid) { nextVid.play().catch(e => console.log("Autoplay prevented:", e)); }
 
-                nextBg.classList.remove('opacity-0');
-                nextBg.classList.add('opacity-100');
-                nextBg.style.zIndex = '10'; 
-
-                currentBg.style.zIndex = '0'; 
+                    nextBg.style.zIndex = '15'; 
+                    nextBg.classList.remove('opacity-0');
+                    nextBg.classList.add('opacity-100');
+                }
                 
                 setTimeout(() => {
-                    currentBg.classList.remove('opacity-100');
-                    currentBg.classList.add('opacity-0');
-                }, 900);
+                    if (currentBg) {
+                        currentBg.classList.remove('opacity-100');
+                        currentBg.classList.add('opacity-0');
+                        currentBg.style.zIndex = '0';
+                        const currVid = currentBg.querySelector('video');
+                        if (currVid) { currVid.pause(); }
+                    }
+                    if (nextBg) {
+                        nextBg.style.zIndex = '10';
+                    }
+                }, 1000);
 
                 setTimeout(() => {
                     heroTitle.innerHTML = carouselData[nextIndex].title;
                     heroDesc.innerHTML = carouselData[nextIndex].desc;
-                    
                     heroTitle.style.opacity = '1';
-                    heroTitle.style.transform = 'translateY(0)';
+                    heroTitle.style.transform = 'translateY(0) translate3d(0,0,0)';
                     heroDesc.style.opacity = '1';
-                    heroDesc.style.transform = 'translateY(0)';
-                    
+                    heroDesc.style.transform = 'translateY(0) translate3d(0,0,0)';
                     currentIndex = nextIndex;
-                }, 450); 
-
-            }, 4500); 
+                }, 500); 
+            }, 5500); 
         });
     </script>
 </body>

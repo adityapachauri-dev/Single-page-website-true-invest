@@ -111,7 +111,10 @@
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=722292507167643&ev=PageView&noscript=1"
     /></noscript>
-    </head>
+
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+</head>
 <body class="font-sans antialiased text-slate-800 selection:bg-blue-200 selection:text-blue-900">
 
     <div class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[90] flex flex-col gap-2 sm:gap-3 items-end gpu-accelerated">
@@ -281,7 +284,7 @@
                     </div>
 
                     <button onclick="openPopup('Novel Heights')" class="w-full sm:w-auto bg-slate-900 hover:bg-emerald-600 text-white font-bold py-3.5 px-8 sm:py-4 sm:px-10 rounded-xl transition-all duration-300 shadow-xl hover:shadow-emerald-500/30 text-center transform-gpu hover:-translate-y-1 text-sm sm:text-base md:text-lg flex items-center justify-center gap-2 sm:gap-3">
-                        Get Floor Plan (Code: NOVEL) <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        Get Floor Plan (Code: NOVEL) <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7-7m7-7H3"></path></svg>
                     </button>
                 </div>
             </div>
@@ -597,20 +600,16 @@
     </footer>
 
     <script>
-        // --- 1. SMART EXIT-INTENT ENGINE (BUG FIX: TRY-CATCH FOR STRICT BROWSERS) ---
+        // --- 1. SMART EXIT-INTENT ENGINE ---
         let exitPopupTriggered = false;
         try {
             exitPopupTriggered = sessionStorage.getItem('exitPopupTriggered') === 'true';
-        } catch (e) {
-            console.warn("Storage restricted");
-        }
+        } catch (e) {}
         
         const handleMouseLeave = (e) => {
             if (e.clientY < 0 && !exitPopupTriggered) {
                 openPopup('General');
-                try {
-                    sessionStorage.setItem('exitPopupTriggered', 'true');
-                } catch(e) {}
+                try { sessionStorage.setItem('exitPopupTriggered', 'true'); } catch(e) {}
                 exitPopupTriggered = true;
                 document.removeEventListener('mouseleave', handleMouseLeave); 
             }
@@ -627,9 +626,7 @@
                     if (window.innerWidth < 768 && !exitPopupTriggered) {
                         if (lastScrollY > window.scrollY + 50 && window.scrollY < 200) {
                             openPopup('General');
-                            try {
-                                sessionStorage.setItem('exitPopupTriggered', 'true');
-                            } catch(e) {}
+                            try { sessionStorage.setItem('exitPopupTriggered', 'true'); } catch(e) {}
                             exitPopupTriggered = true;
                         }
                     }
@@ -639,12 +636,11 @@
             }
         }, { passive: true });
 
-        // --- 2. STORAGE & UTM PARSING (BUG FIX: SAFE ACCESS) ---
+        // --- 2. STORAGE & UTM PARSING ---
         window.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             if(urlParams.has('utm_source')) document.getElementById('utm_source').value = urlParams.get('utm_source');
             if(urlParams.has('utm_campaign')) document.getElementById('utm_campaign').value = urlParams.get('utm_campaign');
-            
             try {
                 const cachedName = localStorage.getItem('trueInvest_clientName');
                 const cachedPhone = localStorage.getItem('trueInvest_clientPhone');
@@ -653,21 +649,18 @@
             } catch(e) {}
         });
 
-        // --- 3. HIGH-PERFORMANCE INTERSECTION OBSERVER ---
+        // --- 3. SCROLL ANIMATIONS ---
         const scrollObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    window.requestAnimationFrame(() => {
-                        entry.target.classList.add('visible');
-                    });
+                    window.requestAnimationFrame(() => { entry.target.classList.add('visible'); });
                     observer.unobserve(entry.target); 
                 }
             });
         }, { root: null, rootMargin: '0px', threshold: 0.1 }); 
-
         document.querySelectorAll('.animate-on-scroll').forEach(el => scrollObserver.observe(el));
 
-        // --- 4. POPUP CONTROL LAYER ---
+        // --- 4. POPUP CONTROL ---
         function openPopup(propertyName) {
             const popup = document.getElementById('contact-popup');
             const popupInner = document.getElementById('popup-inner');
@@ -679,7 +672,6 @@
 
             popup.classList.remove('hidden');
             popup.classList.add('flex'); 
-            
             window.requestAnimationFrame(() => {
                 setTimeout(() => {
                     popup.classList.remove('opacity-0');
@@ -692,19 +684,26 @@
         function closePopup() {
             const popup = document.getElementById('contact-popup');
             const popupInner = document.getElementById('popup-inner');
-
             popup.classList.add('opacity-0');
             popupInner.classList.remove('scale-100', 'opacity-100');
             popupInner.classList.add('scale-95', 'opacity-0');
-            
             setTimeout(() => {
                 popup.classList.add('hidden');
                 popup.classList.remove('flex');
             }, 300); 
         }
 
-        // --- 5. DATA CONNECTIVITY ENGINE & META ADS EVENT (BUG FIX: UNHANDLED PROMISES) ---
-        document.getElementById('whatsAppForm').addEventListener('submit', function(e) {
+        // --- 5. FIREBASE CRM INITIALIZATION ---
+        const firebaseConfig = { 
+            apiKey: atob("QUl6YVN5QXNiOWN3WXAzTEpXTTdtb3RXU0s2VUF5MmN0N3QtNnpZ"), 
+            authDomain: atob("dHJ1ZWNybS02Y2Y4ZS5maXJlYmFzZWFwcC5jb20="), 
+            projectId: atob("dHJ1ZWNybS02Y2Y4ZQ==") 
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // --- 6. CRITICAL: DATA SUBMIT WITH AWAIT AND CATCH ---
+        document.getElementById('whatsAppForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const name = document.getElementById('name').value;
@@ -715,7 +714,7 @@
             const utm_campaign = document.getElementById('utm_campaign').value || 'direct';
             const timestamp = new Date().toISOString();
             
-            // FIRE META PIXEL "LEAD" EVENT
+            // FIRE META PIXEL
             if (typeof fbq === 'function') {
                 fbq('track', 'Lead', {
                     content_name: property,
@@ -723,30 +722,76 @@
                 });
             }
 
+            // BUTTON UI UPDATE
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalBtnHtml = submitBtn.innerHTML;
+            submitBtn.innerHTML = 'Connecting to CRM...';
+            submitBtn.disabled = true;
+
             try {
                 localStorage.setItem('trueInvest_clientName', name);
                 localStorage.setItem('trueInvest_clientPhone', phone);
                 let leads = JSON.parse(localStorage.getItem('trueInvest_leads') || '[]');
                 leads.push({ name, phone, property, query: userMessage, time: timestamp, utm_source });
                 localStorage.setItem('trueInvest_leads', JSON.stringify(leads));
-            } catch (err) { console.warn("Storage restricted"); }
+            } catch (err) {}
 
-            // Bug fix: Added .catch() to prevent silent fetch failure crashes
+            // WEBHOOKS (Run in background)
             fetch("https://formsubmit.co/ajax/trueinvest.house@gmail.com", {
-                method: "POST",
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify({
-                    _subject: "🔥 NEW WEBSITE LEAD: " + property,
-                    Name: name, Phone: phone, Property_Selected: property, User_Query: userMessage, UTM_Source: utm_source, _captcha: "false" 
-                })
-            }).catch(err => console.error("FormSubmit Warning:", err));
+                method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({ _subject: "🔥 NEW WEBSITE LEAD: " + property, Name: name, Phone: phone, Property_Selected: property, User_Query: userMessage, UTM_Source: utm_source, _captcha: "false" })
+            }).catch(e=>console.error(e));
 
             fetch("https://hook.trueinvest.in/api/webhook/new-lead", {
-                method: "POST",
-                headers: { 'Content-Type': 'application/json' },
+                method: "POST", headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name, mobile: phone, project: property, source: utm_source, campaign: utm_campaign, assigned_to: "Sunny" })
-            }).catch(err => console.error("Webhook Warning:", err));
+            }).catch(e=>console.error(e));
 
+            // FIREBASE DIRECT PUSH (WAIT FOR IT)
+            try {
+                const getTodayDate = () => {
+                    const d = new Date(new Date().toLocaleString("en-US", {timeZone: "Asia/Kolkata"}));
+                    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+                };
+                const formatDisplayDate = (dateStr) => {
+                    if (!dateStr) return '-';
+                    const parts = dateStr.split('-');
+                    if(parts.length !== 3) return dateStr;
+                    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                    return `${parts[2]}-${months[parseInt(parts[1])-1]}-${parts[0]}`;
+                };
+                const getTimeString = () => new Date().toLocaleTimeString('en-US', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute:'2-digit', hour12: true });
+
+                let crmRemark = userMessage ? "Website Query: " + userMessage : "Website se nayi lead aayi hai.";
+                
+                await db.collection("leads").add({
+                    ownerId: "WEBSITE_LEAD",
+                    leadDate: getTodayDate(),
+                    name: name,
+                    phone: phone,
+                    leadSource: utm_source !== 'organic' ? utm_source : "Website Form",
+                    projectCategory: property,
+                    specificUnit: "",
+                    location: "",
+                    status: "New",
+                    budget: "",
+                    visitDone: false,
+                    followup: "",
+                    leadTemperature: "Hot",
+                    remark: crmRemark,
+                    history: [{
+                        date: formatDisplayDate(getTodayDate()), 
+                        time: getTimeString(), 
+                        note: crmRemark
+                    }]
+                });
+                console.log("Success: CRM Lead Saved!");
+            } catch (error) {
+                console.error("Firebase Rule Blocked: ", error);
+                alert("Security Error: Aapne Firebase mein Rules update nahi kiye hain. Step 1 padhein!");
+            }
+
+            // REDIRECT TO WHATSAPP
             const whatsappNumber = "919310127880"; 
             let textMessage = `Hello True Invest,%0A%0AI am interested in *${encodeURIComponent(property)}*. Here are my details:%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Phone:* ${encodeURIComponent(phone)}%0A`;
             if(property === "Novel Heights") textMessage += `*Code:* NOVEL%0A`;
@@ -754,15 +799,17 @@
             textMessage += `%0APlease share the details.`;
             
             window.open(`https://wa.me/${whatsappNumber}?text=${textMessage}`, '_blank', 'noopener,noreferrer');
+            
+            submitBtn.innerHTML = originalBtnHtml;
+            submitBtn.disabled = false;
             closePopup(); 
         });
 
-        // --- 6. MEMORY-SAFE 60FPS HERO CAROUSEL ROTATOR ---
+        // --- 7. CAROUSEL ---
         document.addEventListener("DOMContentLoaded", () => {
             const heroTitle = document.getElementById('hero-title');
             const heroDesc = document.getElementById('hero-desc');
-            
-            if(!heroTitle || !heroDesc) return; // safety check
+            if(!heroTitle || !heroDesc) return; 
 
             const carouselData = [
                 { title: "Find Your Perfect Home <br class='hidden sm:block'>or Investment", desc: "Discover premium builder floors, high-ROI apartments, and futuristic smart homes across NCR." },
@@ -773,48 +820,33 @@
             ];
 
             let currentIndex = 0;
-            const totalSlides = carouselData.length;
-
             setInterval(() => {
-                let nextIndex = (currentIndex + 1) % totalSlides;
-
-                heroTitle.style.opacity = '0';
-                heroTitle.style.transform = 'translateY(10px) translate3d(0,0,0)';
-                heroDesc.style.opacity = '0';
-                heroDesc.style.transform = 'translateY(10px) translate3d(0,0,0)';
+                let nextIndex = (currentIndex + 1) % carouselData.length;
+                heroTitle.style.opacity = '0'; heroTitle.style.transform = 'translateY(10px) translate3d(0,0,0)';
+                heroDesc.style.opacity = '0'; heroDesc.style.transform = 'translateY(10px) translate3d(0,0,0)';
 
                 const currentBg = document.getElementById(`hero-bg-${currentIndex}`);
                 const nextBg = document.getElementById(`hero-bg-${nextIndex}`);
                 
                 if (nextBg) {
                     const nextVid = nextBg.querySelector('video');
-                    if (nextVid) { nextVid.play().catch(e => console.log("Autoplay prevented:", e)); }
-
-                    nextBg.style.zIndex = '15'; 
-                    nextBg.classList.remove('opacity-0');
-                    nextBg.classList.add('opacity-100');
+                    if (nextVid) { nextVid.play().catch(e => e); }
+                    nextBg.style.zIndex = '15'; nextBg.classList.remove('opacity-0'); nextBg.classList.add('opacity-100');
                 }
                 
                 setTimeout(() => {
                     if (currentBg) {
-                        currentBg.classList.remove('opacity-100');
-                        currentBg.classList.add('opacity-0');
-                        currentBg.style.zIndex = '0';
+                        currentBg.classList.remove('opacity-100'); currentBg.classList.add('opacity-0'); currentBg.style.zIndex = '0';
                         const currVid = currentBg.querySelector('video');
                         if (currVid) { currVid.pause(); }
                     }
-                    if (nextBg) {
-                        nextBg.style.zIndex = '10';
-                    }
+                    if (nextBg) { nextBg.style.zIndex = '10'; }
                 }, 1000);
 
                 setTimeout(() => {
-                    heroTitle.innerHTML = carouselData[nextIndex].title;
-                    heroDesc.innerHTML = carouselData[nextIndex].desc;
-                    heroTitle.style.opacity = '1';
-                    heroTitle.style.transform = 'translateY(0) translate3d(0,0,0)';
-                    heroDesc.style.opacity = '1';
-                    heroDesc.style.transform = 'translateY(0) translate3d(0,0,0)';
+                    heroTitle.innerHTML = carouselData[nextIndex].title; heroDesc.innerHTML = carouselData[nextIndex].desc;
+                    heroTitle.style.opacity = '1'; heroTitle.style.transform = 'translateY(0) translate3d(0,0,0)';
+                    heroDesc.style.opacity = '1'; heroDesc.style.transform = 'translateY(0) translate3d(0,0,0)';
                     currentIndex = nextIndex;
                 }, 500); 
             }, 5500); 

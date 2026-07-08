@@ -134,10 +134,16 @@
                 </div>
                 TRUE INVEST
             </div>
-            <div class="flex items-center gap-3 sm:gap-6">
-                <a href="tel:9310127880" class="inline-flex items-center gap-1.5 text-slate-900 hover:text-blue-600 font-extrabold text-sm sm:text-base tracking-tight transition-colors">
+            <div class="flex items-center gap-2 sm:gap-4">
+                <a href="tel:9310127880" class="hidden md:inline-flex items-center gap-1.5 text-slate-900 hover:text-blue-600 font-extrabold text-sm sm:text-base tracking-tight transition-colors">
                     <span>📞</span> <span class="hidden xs:inline">93101 27880</span>
                 </a>
+                
+                <button onclick="document.getElementById('customMessage').value='Please share the master brochure & floor plans.'; openPopup('General');" class="hidden sm:flex items-center gap-2 text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 font-bold py-2 px-4 rounded-full transition-all duration-300 transform-gpu hover:-translate-y-0.5 shadow-sm text-xs sm:text-sm">
+                    <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    Brochure
+                </button>
+
                 <button onclick="openPopup('General')" class="btn-pulse bg-slate-900 hover:bg-black text-white font-bold py-2 px-4 sm:py-2.5 sm:px-6 rounded-full transition-all duration-300 transform-gpu hover:-translate-y-0.5 shadow-md text-xs sm:text-sm border border-slate-700">
                     Enquire Now
                 </button>
@@ -283,9 +289,15 @@
                         </div>
                     </div>
 
-                    <button onclick="openPopup('Novel Heights')" class="w-full sm:w-auto bg-slate-900 hover:bg-emerald-600 text-white font-bold py-3.5 px-8 sm:py-4 sm:px-10 rounded-xl transition-all duration-300 shadow-xl hover:shadow-emerald-500/30 text-center transform-gpu hover:-translate-y-1 text-sm sm:text-base md:text-lg flex items-center justify-center gap-2 sm:gap-3">
-                        Get Floor Plan (Code: NOVEL) <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7-7m7-7H3"></path></svg>
-                    </button>
+                    <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                        <button onclick="openPopup('Novel Heights')" class="flex-1 bg-slate-900 hover:bg-emerald-600 text-white font-bold py-3.5 px-6 sm:py-4 rounded-xl transition-all duration-300 shadow-xl hover:shadow-emerald-500/30 text-center transform-gpu hover:-translate-y-1 text-sm sm:text-base flex items-center justify-center gap-2">
+                            Enquire Now <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7-7m7-7H3"></path></svg>
+                        </button>
+                        <button onclick="document.getElementById('customMessage').value='Please share the Brochure and Floor Plan for Novel Heights.'; openPopup('Novel Heights');" class="flex-1 bg-white border-2 border-slate-200 hover:border-slate-900 text-slate-800 font-bold py-3.5 px-6 sm:py-4 rounded-xl transition-all duration-300 shadow-sm hover:shadow-md text-center transform-gpu hover:-translate-y-1 text-sm sm:text-base flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            Brochure & Plan
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -325,9 +337,16 @@
                                 <span class="font-black text-2xl sm:text-3xl text-white">70%</span>
                             </div>
                         </div>
-                        <button onclick="openPopup('Lock n key Homes')" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 sm:py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-blue-500/30 text-sm sm:text-lg text-center transform-gpu hover:scale-[1.02]">
-                            Book Site Visit
-                        </button>
+                        
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <button onclick="openPopup('Lock n key Homes')" class="flex-1 bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 px-4 rounded-xl transition-all duration-300 shadow-lg hover:shadow-blue-500/30 text-sm sm:text-base text-center transform-gpu hover:scale-[1.02]">
+                                Book Site Visit
+                            </button>
+                            <button onclick="document.getElementById('customMessage').value='Please share the Brochure and Floor Plan for Lock n key Homes.'; openPopup('Lock n key Homes');" class="flex-1 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-bold py-3.5 px-4 rounded-xl transition-all duration-300 shadow-sm text-sm sm:text-base flex items-center justify-center gap-2 transform-gpu hover:scale-[1.02]">
+                                <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                Floor Plan
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -446,10 +465,16 @@
                         <div class="bg-slate-800 p-3 sm:p-4 rounded-xl border border-slate-700 text-slate-300 flex items-center text-xs sm:text-sm font-medium"><span class="text-lg mr-2">💰</span> 30/70 Payment Plan</div>
                         <div class="bg-slate-800 p-3 sm:p-4 rounded-xl border border-slate-700 text-slate-300 flex items-center text-xs sm:text-sm font-medium"><span class="text-lg mr-2">🏦</span> Easy Home Loans</div>
                     </div>
-
-                    <button onclick="openPopup('Luxury Builder Floors')" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold py-3.5 sm:py-4 px-6 rounded-xl transition-all duration-300 shadow-xl hover:shadow-amber-500/40 text-center transform-gpu hover:-translate-y-1 hover:scale-[1.02] text-sm sm:text-lg flex justify-center items-center gap-2">
-                        DM "LUXURY" For Plans & Visit
-                    </button>
+                    
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <button onclick="openPopup('Luxury Builder Floors')" class="flex-[3] bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold py-3.5 sm:py-4 px-6 rounded-xl transition-all duration-300 shadow-xl hover:shadow-amber-500/40 text-center transform-gpu hover:-translate-y-1 hover:scale-[1.02] text-sm sm:text-base flex justify-center items-center gap-2">
+                            DM "LUXURY" For Plans & Visit
+                        </button>
+                        <button onclick="document.getElementById('customMessage').value='Please share the Brochure and Floor Plan for the Luxury Builder Floors.'; openPopup('Luxury Builder Floors');" class="flex-[2] bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-bold py-3.5 sm:py-4 px-4 rounded-xl transition-all duration-300 shadow-sm text-center transform-gpu hover:-translate-y-1 hover:scale-[1.02] text-sm sm:text-base flex justify-center items-center gap-2">
+                            <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            Brochure
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -513,7 +538,6 @@
                             <span class="text-xs sm:text-sm md:text-base font-black text-purple-900">3 BHK + 3 T</span>
                             <span class="text-[10px] sm:text-xs md:text-sm font-black bg-purple-600 text-white px-2 py-1 sm:px-3 sm:py-1 rounded-lg shadow-sm">1,650 Sq. Ft.</span>
                         </div>
-                        <div class="space-y-2 sm:space-y-3 mb-6 sm:mb-8">
                         <div class="bg-white p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200 shadow-sm flex justify-between items-center hover:border-purple-300 transition-colors">
                             <span class="text-xs sm:text-sm md:text-base font-bold text-slate-900">4 BHK + 4 T</span>
                             <span class="text-[10px] sm:text-xs md:text-sm font-bold bg-slate-100 text-slate-700 px-2 py-1 sm:px-3 sm:py-1 rounded-lg">2,550 Sq. Ft.</span>
@@ -524,9 +548,15 @@
                         </div>
                     </div>
 
-                    <button onclick="openPopup('AKJ Flora Homez')" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold py-3.5 sm:py-4 px-6 sm:px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-purple-500/40 text-center text-sm sm:text-lg transform-gpu hover:-translate-y-1 hover:scale-[1.02]">
-                        Enquire About Flora Homez
-                    </button>
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <button onclick="openPopup('AKJ Flora Homez')" class="flex-[3] bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold py-3.5 sm:py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-purple-500/40 text-center text-sm sm:text-base transform-gpu hover:-translate-y-1 hover:scale-[1.02]">
+                            Enquire About Flora Homez
+                        </button>
+                        <button onclick="document.getElementById('customMessage').value='Please share the Brochure and Floor Plan for AKJ Flora Homez.'; openPopup('AKJ Flora Homez');" class="flex-[2] bg-white border-2 border-purple-200 hover:border-purple-600 text-purple-800 font-bold py-3.5 sm:py-4 px-4 rounded-xl transition-all duration-300 shadow-sm text-center transform-gpu hover:-translate-y-1 hover:scale-[1.02] text-sm sm:text-base flex justify-center items-center gap-2">
+                            <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            Brochure
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -687,20 +717,28 @@
             popup.classList.add('opacity-0');
             popupInner.classList.remove('scale-100', 'opacity-100');
             popupInner.classList.add('scale-95', 'opacity-0');
+            // Reset custom message on close just in case
+            setTimeout(() => { document.getElementById('customMessage').value = ''; }, 300);
+            
             setTimeout(() => {
                 popup.classList.add('hidden');
                 popup.classList.remove('flex');
             }, 300); 
         }
 
-        // --- 5. FIREBASE CRM INITIALIZATION ---
-        const firebaseConfig = { 
-            apiKey: atob("QUl6YVN5QXNiOWN3WXAzTEpXTTdtb3RXU0s2VUF5MmN0N3QtNnpZ"), 
-            authDomain: atob("dHJ1ZWNybS02Y2Y4ZS5maXJlYmFzZWFwcC5jb20="), 
-            projectId: atob("dHJ1ZWNybS02Y2Y4ZQ==") 
-        };
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
+        // --- 5. FIREBASE CRM INITIALIZATION (With Error Handling Wrapper) ---
+        let db;
+        try {
+            const firebaseConfig = { 
+                apiKey: atob("QUl6YVN5QXNiOWN3WXAzTEpXTTdtb3RXU0s2VUF5MmN0N3QtNnpZ"), 
+                authDomain: atob("dHJ1ZWNybS02Y2Y4ZS5maXJlYmFzZWFwcC5jb20="), 
+                projectId: atob("dHJ1ZWNybS02Y2Y4ZQ==") 
+            };
+            firebase.initializeApp(firebaseConfig);
+            db = firebase.firestore();
+        } catch (error) {
+            console.error("Firebase Init Error:", error);
+        }
 
         // --- 6. CRITICAL: DATA SUBMIT (BULLETPROOF) ---
         document.getElementById('whatsAppForm').addEventListener('submit', async function(e) {
@@ -747,51 +785,52 @@
                     body: JSON.stringify({ name, mobile: phone, project: property, source: utm_source, campaign: utm_campaign, assigned_to: "Sunny" })
                 }).catch(e=>console.log(e));
 
-                // FIREBASE DIRECT PUSH
-                const getTodayDate = () => {
-                    const d = new Date(new Date().toLocaleString("en-US", {timeZone: "Asia/Kolkata"}));
-                    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-                };
-                
-                const formatDisplayDate = (dateStr) => {
-                    if (!dateStr) return '-';
-                    const parts = dateStr.split('-');
-                    if(parts.length !== 3) return dateStr;
-                    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-                    return `${parts[2]}-${months[parseInt(parts[1])-1]}-${parts[0]}`;
-                };
-                
-                const getTimeString = () => new Date().toLocaleTimeString('en-US', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute:'2-digit', hour12: true });
+                // FIREBASE DIRECT PUSH (If db exists)
+                if (db) {
+                    const getTodayDate = () => {
+                        const d = new Date(new Date().toLocaleString("en-US", {timeZone: "Asia/Kolkata"}));
+                        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+                    };
+                    
+                    const formatDisplayDate = (dateStr) => {
+                        if (!dateStr) return '-';
+                        const parts = dateStr.split('-');
+                        if(parts.length !== 3) return dateStr;
+                        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                        return `${parts[2]}-${months[parseInt(parts[1])-1]}-${parts[0]}`;
+                    };
+                    
+                    const getTimeString = () => new Date().toLocaleTimeString('en-US', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute:'2-digit', hour12: true });
 
-                let crmRemark = userMessage ? "Website Query: " + userMessage : "Website se nayi lead aayi hai.";
-                
-                await db.collection("leads").add({
-                    ownerId: "WEBSITE_LEAD",
-                    leadDate: getTodayDate(),
-                    name: name,
-                    phone: phone,
-                    leadSource: utm_source !== 'organic' ? utm_source : "Website Form",
-                    projectCategory: property,
-                    specificUnit: "",
-                    location: "",
-                    status: "New",
-                    budget: "",
-                    visitDone: false,
-                    followup: "",
-                    leadTemperature: "Hot",
-                    remark: crmRemark,
-                    history: [{
-                        date: formatDisplayDate(getTodayDate()), 
-                        time: getTimeString(), 
-                        note: crmRemark
-                    }]
-                });
-                console.log("Success: CRM Lead Saved!");
+                    let crmRemark = userMessage ? "Website Query: " + userMessage : "Website se nayi lead aayi hai.";
+                    
+                    await db.collection("leads").add({
+                        ownerId: "WEBSITE_LEAD",
+                        leadDate: getTodayDate(),
+                        name: name,
+                        phone: phone,
+                        leadSource: utm_source !== 'organic' ? utm_source : "Website Form",
+                        projectCategory: property,
+                        specificUnit: "",
+                        location: "",
+                        status: "New",
+                        budget: "",
+                        visitDone: false,
+                        followup: "",
+                        leadTemperature: "Hot",
+                        remark: crmRemark,
+                        history: [{
+                            date: formatDisplayDate(getTodayDate()), 
+                            time: getTimeString(), 
+                            note: crmRemark
+                        }]
+                    });
+                    console.log("Success: CRM Lead Saved!");
+                }
                 
             } catch (error) {
-                // If Firebase fails (e.g., Firestore Security Rules), catch it silently
-                // so we DO NOT block the user from reaching WhatsApp. Never lose a lead!
-                console.error("CRM Push Failed (Likely Security Rules): ", error);
+                // If Firebase fails, catch it silently so we DO NOT block the user from reaching WhatsApp. Never lose a lead!
+                console.warn("CRM Push Failed (Likely Security Rules): ", error);
             } finally {
                 // FIRE META PIXEL
                 if (typeof fbq === 'function') {
@@ -824,7 +863,7 @@
             }
         });
 
-        // --- 7. CAROUSEL ---
+        // --- 7. CAROUSEL (With Protected Promises) ---
         document.addEventListener("DOMContentLoaded", () => {
             const heroTitle = document.getElementById('hero-title');
             const heroDesc = document.getElementById('hero-desc');
@@ -849,7 +888,7 @@
                 
                 if (nextBg) {
                     const nextVid = nextBg.querySelector('video');
-                    if (nextVid) { nextVid.play().catch(e => e); }
+                    if (nextVid) { nextVid.play().catch(e => console.warn('Video Autoplay Prevented:', e)); }
                     nextBg.style.zIndex = '15'; nextBg.classList.remove('opacity-0'); nextBg.classList.add('opacity-100');
                 }
                 

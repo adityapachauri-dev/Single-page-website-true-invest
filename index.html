@@ -702,7 +702,7 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // --- 6. CRITICAL: DATA SUBMIT WITH AWAIT AND CATCH ---
+        // --- 6. CRITICAL: DATA SUBMIT (BULLETPROOF) ---
         document.getElementById('whatsAppForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -713,46 +713,46 @@
             const utm_source = document.getElementById('utm_source').value || 'organic';
             const utm_campaign = document.getElementById('utm_campaign').value || 'direct';
             const timestamp = new Date().toISOString();
-            
-            // FIRE META PIXEL
-            if (typeof fbq === 'function') {
-                fbq('track', 'Lead', {
-                    content_name: property,
-                    content_category: 'Real Estate Form Submit'
-                });
-            }
 
             // BUTTON UI UPDATE
             const submitBtn = this.querySelector('button[type="submit"]');
             const originalBtnHtml = submitBtn.innerHTML;
-            submitBtn.innerHTML = 'Connecting to CRM...';
+            submitBtn.innerHTML = 'Connecting...';
             submitBtn.disabled = true;
 
             try {
-                localStorage.setItem('trueInvest_clientName', name);
-                localStorage.setItem('trueInvest_clientPhone', phone);
-                let leads = JSON.parse(localStorage.getItem('trueInvest_leads') || '[]');
-                leads.push({ name, phone, property, query: userMessage, time: timestamp, utm_source });
-                localStorage.setItem('trueInvest_leads', JSON.stringify(leads));
-            } catch (err) {}
+                // LOCAL STORAGE BACKUP
+                try {
+                    localStorage.setItem('trueInvest_clientName', name);
+                    localStorage.setItem('trueInvest_clientPhone', phone);
+                    let leads = JSON.parse(localStorage.getItem('trueInvest_leads') || '[]');
+                    leads.push({ name, phone, property, query: userMessage, time: timestamp, utm_source });
+                    localStorage.setItem('trueInvest_leads', JSON.stringify(leads));
+                } catch (err) {}
 
-            // WEBHOOKS (Run in background)
-            fetch("https://formsubmit.co/ajax/trueinvest.house@gmail.com", {
-                method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify({ _subject: "🔥 NEW WEBSITE LEAD: " + property, Name: name, Phone: phone, Property_Selected: property, User_Query: userMessage, UTM_Source: utm_source, _captcha: "false" })
-            }).catch(e=>console.error(e));
+                // WEBHOOKS (Using keepalive: true to prevent browser cancellation)
+                const fetchOptions = {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    keepalive: true
+                };
 
-            fetch("https://hook.trueinvest.in/api/webhook/new-lead", {
-                method: "POST", headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, mobile: phone, project: property, source: utm_source, campaign: utm_campaign, assigned_to: "Sunny" })
-            }).catch(e=>console.error(e));
+                fetch("https://formsubmit.co/ajax/trueinvest.house@gmail.com", {
+                    ...fetchOptions,
+                    body: JSON.stringify({ _subject: "🔥 NEW WEBSITE LEAD: " + property, Name: name, Phone: phone, Property_Selected: property, User_Query: userMessage, UTM_Source: utm_source, _captcha: "false" })
+                }).catch(e=>console.log(e));
 
-            // FIREBASE DIRECT PUSH (WAIT FOR IT)
-            try {
+                fetch("https://hook.trueinvest.in/api/webhook/new-lead", {
+                    ...fetchOptions,
+                    body: JSON.stringify({ name, mobile: phone, project: property, source: utm_source, campaign: utm_campaign, assigned_to: "Sunny" })
+                }).catch(e=>console.log(e));
+
+                // FIREBASE DIRECT PUSH
                 const getTodayDate = () => {
                     const d = new Date(new Date().toLocaleString("en-US", {timeZone: "Asia/Kolkata"}));
                     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
                 };
+                
                 const formatDisplayDate = (dateStr) => {
                     if (!dateStr) return '-';
                     const parts = dateStr.split('-');
@@ -760,6 +760,7 @@
                     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
                     return `${parts[2]}-${months[parseInt(parts[1])-1]}-${parts[0]}`;
                 };
+                
                 const getTimeString = () => new Date().toLocaleTimeString('en-US', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute:'2-digit', hour12: true });
 
                 let crmRemark = userMessage ? "Website Query: " + userMessage : "Website se nayi lead aayi hai.";
@@ -786,23 +787,41 @@
                     }]
                 });
                 console.log("Success: CRM Lead Saved!");
+                
             } catch (error) {
-                console.error("Firebase Rule Blocked: ", error);
-                alert("Security Error: Aapne Firebase mein Rules update nahi kiye hain. Step 1 padhein!");
-            }
+                // If Firebase fails (e.g., Firestore Security Rules), catch it silently
+                // so we DO NOT block the user from reaching WhatsApp. Never lose a lead!
+                console.error("CRM Push Failed (Likely Security Rules): ", error);
+            } finally {
+                // FIRE META PIXEL
+                if (typeof fbq === 'function') {
+                    fbq('track', 'Lead', {
+                        content_name: property,
+                        content_category: 'Real Estate Form Submit'
+                    });
+                }
 
-            // REDIRECT TO WHATSAPP
-            const whatsappNumber = "919310127880"; 
-            let textMessage = `Hello True Invest,%0A%0AI am interested in *${encodeURIComponent(property)}*. Here are my details:%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Phone:* ${encodeURIComponent(phone)}%0A`;
-            if(property === "Novel Heights") textMessage += `*Code:* NOVEL%0A`;
-            if(userMessage.trim()) textMessage += `*Query:* ${encodeURIComponent(userMessage)}%0A`;
-            textMessage += `%0APlease share the details.`;
-            
-            window.open(`https://wa.me/${whatsappNumber}?text=${textMessage}`, '_blank', 'noopener,noreferrer');
-            
-            submitBtn.innerHTML = originalBtnHtml;
-            submitBtn.disabled = false;
-            closePopup(); 
+                // REDIRECT TO WHATSAPP
+                const whatsappNumber = "919310127880"; 
+                let textMessage = `Hello True Invest,%0A%0AI am interested in *${encodeURIComponent(property)}*. Here are my details:%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Phone:* ${encodeURIComponent(phone)}%0A`;
+                if(property === "Novel Heights") textMessage += `*Code:* NOVEL%0A`;
+                if(userMessage.trim()) textMessage += `*Query:* ${encodeURIComponent(userMessage)}%0A`;
+                textMessage += `%0APlease share the details.`;
+                
+                const waUrl = `https://wa.me/${whatsappNumber}?text=${textMessage}`;
+                
+                // Fallback mechanism to prevent strict popup blockers from ruining the redirect
+                let newWindow = window.open(waUrl, '_blank', 'noopener,noreferrer');
+                if(!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                    window.location.href = waUrl;
+                }
+                
+                // RESET UI
+                submitBtn.innerHTML = originalBtnHtml;
+                submitBtn.disabled = false;
+                document.getElementById('whatsAppForm').reset();
+                closePopup(); 
+            }
         });
 
         // --- 7. CAROUSEL ---

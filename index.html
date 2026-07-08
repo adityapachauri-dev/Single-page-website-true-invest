@@ -43,27 +43,17 @@
             background-color: #f8fafc;
             text-rendering: optimizeLegibility;
         }
-
-        /* Hardware Acceleration Classes */
         .gpu-accelerated {
             transform: translateZ(0);
             backface-visibility: hidden;
             perspective: 1000px;
             will-change: transform, opacity;
         }
-
-        /* Render Optimization for Sections */
-        section {
-            contain: paint; /* Prevents layout shifts from affecting other sections */
-        }
-
-        /* Premium Custom Scrollbar */
+        section { contain: paint; }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #f1f5f9; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-
-        /* Hardware Accelerated Scroll Animations */
         .fade-in-up { 
             opacity: 0; 
             transform: translateY(30px) translate3d(0,0,0); 
@@ -73,52 +63,62 @@
             opacity: 1; 
             transform: translateY(0) translate3d(0,0,0); 
         }
-
-        /* Glowing Pulse Elements - GPU Safe */
         @keyframes subtlePulse {
             0% { box-shadow: 0 0 0 0 rgba(15, 23, 42, 0.4); }
             70% { box-shadow: 0 0 0 12px rgba(15, 23, 42, 0); }
             100% { box-shadow: 0 0 0 0 rgba(15, 23, 42, 0); }
         }
         .btn-pulse { animation: subtlePulse 2.5s infinite; }
-        
         @keyframes urgentPulse {
             0% { transform: scale(1) translateZ(0); opacity: 1; }
             50% { transform: scale(1.02) translateZ(0); opacity: 0.9; }
             100% { transform: scale(1) translateZ(0); opacity: 1; }
         }
         .animate-urgent { animation: urgentPulse 2s infinite; will-change: transform; }
-
-        /* Glassmorphism Configuration */
         .glass-panel {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.5);
         }
-        
         .glass-btn-dark {
             background: rgba(15, 23, 42, 0.65);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.15);
         }
-
-        /* Input Form Tweaks */
         input, select, textarea { font-size: 16px !important; }
         input:-webkit-autofill, select:-webkit-autofill {
             -webkit-box-shadow: 0 0 0 30px white inset !important;
             border-radius: 0.75rem;
         }
     </style>
-</head>
+
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    
+    // Pixel ID Added Successfully
+    fbq('init', '722292507167643'); 
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=722292507167643&ev=PageView&noscript=1"
+    /></noscript>
+    </head>
 <body class="font-sans antialiased text-slate-800 selection:bg-blue-200 selection:text-blue-900">
 
     <div class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[90] flex flex-col gap-2 sm:gap-3 items-end gpu-accelerated">
         <a href="tel:9310127880" class="w-12 h-12 bg-slate-900 hover:bg-black text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform transform-gpu border border-slate-700">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
         </a>
-        <a href="https://wa.me/919310127880?text=Hi%20True%20Invest,%20I%20am%20interested%20in%20your%20properties." target="_blank" rel="noopener noreferrer" class="w-14 h-14 bg-[#25D366] hover:bg-[#1ebd5c] text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform transform-gpu shadow-green-500/30 btn-pulse">
+        <a onclick="if(typeof fbq === 'function') fbq('track', 'Contact');" href="https://wa.me/919310127880?text=Hi%20True%20Invest,%20I%20am%20interested%20in%20your%20properties." target="_blank" rel="noopener noreferrer" class="w-14 h-14 bg-[#25D366] hover:bg-[#1ebd5c] text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform transform-gpu shadow-green-500/30 btn-pulse">
             <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.411 0 11.981 0c3.184.001 6.177 1.242 8.426 3.496 2.249 2.254 3.487 5.253 3.485 8.441-.004 6.621-5.355 11.97-11.931 11.97h-.007c-2.012-.002-3.992-.511-5.74-1.48L0 24zm5.821-3.466l.379.225c1.745 1.036 3.777 1.583 5.769 1.585h.005c5.54 0 10.047-4.484 10.05-10.003.002-2.673-1.033-5.187-2.915-7.072-1.882-1.884-4.389-2.92-7.067-2.922-5.545 0-10.054 4.485-10.058 10.006-.001 2.067.538 4.084 1.56 5.867l.247.428-1.032 3.766 3.862-1.01zm11.365-6.83c-.347-.173-2.054-1.013-2.371-1.129-.317-.116-.549-.174-.78.174-.231.347-.896 1.129-1.097 1.36-.201.231-.402.26-.749.087-.347-.173-1.464-.54-2.788-1.72-1.03-.919-1.724-2.053-1.926-2.399-.201-.347-.021-.535.153-.707.156-.155.347-.405.52-.607.174-.203.231-.347.347-.578.116-.231.058-.434-.029-.607-.087-.173-.78-1.88-1.069-2.575-.282-.677-.567-.585-.78-.596-.201-.01-.433-.01-.664-.01-.231 0-.607.087-.924.434-.317.347-1.213 1.187-1.213 2.893 0 1.706 1.242 3.353 1.415 3.584.173.231 2.444 3.732 5.922 5.235.827.357 1.472.571 1.975.732.831.264 1.587.227 2.184.138.665-.1 2.054-.839 2.343-1.65.289-.812.289-1.506.203-1.65-.087-.145-.317-.231-.664-.405z"/></svg>
         </a>
     </div>
@@ -388,7 +388,6 @@
             </div>
             
             <div class="flex flex-col lg:flex-row gap-8 sm:gap-12 lg:gap-20 items-center">
-                
                 <div class="lg:w-1/2 w-full relative h-auto">
                     <div class="relative rounded-2xl sm:rounded-[2rem] overflow-hidden shadow-2xl border-4 border-slate-700 w-full aspect-video group gpu-accelerated">
                         <video autoplay loop muted playsinline class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 opacity-90 transform-gpu">
@@ -421,27 +420,19 @@
                     <h4 class="font-bold text-white mb-3 sm:mb-4 uppercase tracking-wider text-xs sm:text-sm">Available Options</h4>
                     <div class="space-y-3 mb-8">
                         <div class="bg-slate-800/60 p-3 sm:p-4 rounded-xl border border-slate-700 flex justify-between items-center transition-colors hover:bg-slate-800 hover:border-amber-500/50">
-                            <div>
-                                <span class="font-black text-white block text-sm sm:text-base">156 Gaj (3BHK + 3T)</span>
-                            </div>
+                            <div><span class="font-black text-white block text-sm sm:text-base">156 Gaj (3BHK + 3T)</span></div>
                             <span class="font-bold text-amber-400 text-sm sm:text-base">₹1.40 Cr*</span>
                         </div>
                         <div class="bg-slate-800/60 p-3 sm:p-4 rounded-xl border border-slate-700 flex justify-between items-center transition-colors hover:bg-slate-800 hover:border-amber-500/50">
-                            <div>
-                                <span class="font-black text-white block text-sm sm:text-base">192 Gaj (3BHK + 3T)</span>
-                            </div>
+                            <div><span class="font-black text-white block text-sm sm:text-base">192 Gaj (3BHK + 3T)</span></div>
                             <span class="font-bold text-amber-400 text-sm sm:text-base">₹1.40 Cr*</span>
                         </div>
                         <div class="bg-slate-800/60 p-3 sm:p-4 rounded-xl border border-slate-700 flex justify-between items-center transition-colors hover:bg-slate-800 hover:border-amber-500/50">
-                            <div>
-                                <span class="font-black text-white block text-sm sm:text-base">237 Gaj (4BHK + 4T + Servant)</span>
-                            </div>
+                            <div><span class="font-black text-white block text-sm sm:text-base">237 Gaj (4BHK + 4T + Servant)</span></div>
                             <span class="font-bold text-amber-400 text-sm sm:text-base">₹1.80 Cr*</span>
                         </div>
                         <div class="bg-slate-800/60 p-3 sm:p-4 rounded-xl border border-slate-700 flex justify-between items-center transition-colors hover:bg-slate-800 hover:border-amber-500/50">
-                            <div>
-                                <span class="font-black text-white block text-sm sm:text-base">300 Gaj (4BHK + 4T + Servant)</span>
-                            </div>
+                            <div><span class="font-black text-white block text-sm sm:text-base">300 Gaj (4BHK + 4T + Servant)</span></div>
                             <span class="font-bold text-amber-400 text-sm sm:text-base">₹2.80 Cr*</span>
                         </div>
                     </div>
@@ -606,15 +597,22 @@
     </footer>
 
     <script>
-        // --- 1. SMART EXIT-INTENT ENGINE (MEMORY SAFE) ---
-        let exitPopupTriggered = sessionStorage.getItem('exitPopupTriggered');
+        // --- 1. SMART EXIT-INTENT ENGINE (BUG FIX: TRY-CATCH FOR STRICT BROWSERS) ---
+        let exitPopupTriggered = false;
+        try {
+            exitPopupTriggered = sessionStorage.getItem('exitPopupTriggered') === 'true';
+        } catch (e) {
+            console.warn("Storage restricted");
+        }
         
         const handleMouseLeave = (e) => {
             if (e.clientY < 0 && !exitPopupTriggered) {
                 openPopup('General');
-                sessionStorage.setItem('exitPopupTriggered', 'true');
+                try {
+                    sessionStorage.setItem('exitPopupTriggered', 'true');
+                } catch(e) {}
                 exitPopupTriggered = true;
-                document.removeEventListener('mouseleave', handleMouseLeave); // Save memory
+                document.removeEventListener('mouseleave', handleMouseLeave); 
             }
         };
         document.addEventListener('mouseleave', handleMouseLeave);
@@ -629,7 +627,9 @@
                     if (window.innerWidth < 768 && !exitPopupTriggered) {
                         if (lastScrollY > window.scrollY + 50 && window.scrollY < 200) {
                             openPopup('General');
-                            sessionStorage.setItem('exitPopupTriggered', 'true');
+                            try {
+                                sessionStorage.setItem('exitPopupTriggered', 'true');
+                            } catch(e) {}
                             exitPopupTriggered = true;
                         }
                     }
@@ -639,23 +639,24 @@
             }
         }, { passive: true });
 
-        // --- 2. STORAGE & UTM PARSING ---
+        // --- 2. STORAGE & UTM PARSING (BUG FIX: SAFE ACCESS) ---
         window.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             if(urlParams.has('utm_source')) document.getElementById('utm_source').value = urlParams.get('utm_source');
             if(urlParams.has('utm_campaign')) document.getElementById('utm_campaign').value = urlParams.get('utm_campaign');
             
-            const cachedName = localStorage.getItem('trueInvest_clientName');
-            const cachedPhone = localStorage.getItem('trueInvest_clientPhone');
-            if (cachedName) document.getElementById('name').value = cachedName;
-            if (cachedPhone) document.getElementById('phone').value = cachedPhone;
+            try {
+                const cachedName = localStorage.getItem('trueInvest_clientName');
+                const cachedPhone = localStorage.getItem('trueInvest_clientPhone');
+                if (cachedName) document.getElementById('name').value = cachedName;
+                if (cachedPhone) document.getElementById('phone').value = cachedPhone;
+            } catch(e) {}
         });
 
         // --- 3. HIGH-PERFORMANCE INTERSECTION OBSERVER ---
         const scrollObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // Use requestAnimationFrame to ensure smooth paint
                     window.requestAnimationFrame(() => {
                         entry.target.classList.add('visible');
                     });
@@ -679,7 +680,6 @@
             popup.classList.remove('hidden');
             popup.classList.add('flex'); 
             
-            // Force hardware acceleration rendering before animating
             window.requestAnimationFrame(() => {
                 setTimeout(() => {
                     popup.classList.remove('opacity-0');
@@ -703,7 +703,7 @@
             }, 300); 
         }
 
-        // --- 5. DATA CONNECTIVITY ENGINE (CRM & WHATSAPP) ---
+        // --- 5. DATA CONNECTIVITY ENGINE & META ADS EVENT (BUG FIX: UNHANDLED PROMISES) ---
         document.getElementById('whatsAppForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -715,33 +715,37 @@
             const utm_campaign = document.getElementById('utm_campaign').value || 'direct';
             const timestamp = new Date().toISOString();
             
-            localStorage.setItem('trueInvest_clientName', name);
-            localStorage.setItem('trueInvest_clientPhone', phone);
+            // FIRE META PIXEL "LEAD" EVENT
+            if (typeof fbq === 'function') {
+                fbq('track', 'Lead', {
+                    content_name: property,
+                    content_category: 'Real Estate Form Submit'
+                });
+            }
 
             try {
+                localStorage.setItem('trueInvest_clientName', name);
+                localStorage.setItem('trueInvest_clientPhone', phone);
                 let leads = JSON.parse(localStorage.getItem('trueInvest_leads') || '[]');
                 leads.push({ name, phone, property, query: userMessage, time: timestamp, utm_source });
                 localStorage.setItem('trueInvest_leads', JSON.stringify(leads));
             } catch (err) { console.warn("Storage restricted"); }
 
-            try {
-                fetch("https://formsubmit.co/ajax/trueinvest.house@gmail.com", {
-                    method: "POST",
-                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                    body: JSON.stringify({
-                        _subject: "🔥 NEW WEBSITE LEAD: " + property,
-                        Name: name, Phone: phone, Property_Selected: property, User_Query: userMessage, UTM_Source: utm_source, _captcha: "false" 
-                    })
-                });
-            } catch(err) {}
+            // Bug fix: Added .catch() to prevent silent fetch failure crashes
+            fetch("https://formsubmit.co/ajax/trueinvest.house@gmail.com", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({
+                    _subject: "🔥 NEW WEBSITE LEAD: " + property,
+                    Name: name, Phone: phone, Property_Selected: property, User_Query: userMessage, UTM_Source: utm_source, _captcha: "false" 
+                })
+            }).catch(err => console.error("FormSubmit Warning:", err));
 
-            try {
-                fetch("https://hook.trueinvest.in/api/webhook/new-lead", {
-                    method: "POST",
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, mobile: phone, project: property, source: utm_source, campaign: utm_campaign, assigned_to: "Sunny" })
-                });
-            } catch(err) {}
+            fetch("https://hook.trueinvest.in/api/webhook/new-lead", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, mobile: phone, project: property, source: utm_source, campaign: utm_campaign, assigned_to: "Sunny" })
+            }).catch(err => console.error("Webhook Warning:", err));
 
             const whatsappNumber = "919310127880"; 
             let textMessage = `Hello True Invest,%0A%0AI am interested in *${encodeURIComponent(property)}*. Here are my details:%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Phone:* ${encodeURIComponent(phone)}%0A`;
@@ -757,6 +761,8 @@
         document.addEventListener("DOMContentLoaded", () => {
             const heroTitle = document.getElementById('hero-title');
             const heroDesc = document.getElementById('hero-desc');
+            
+            if(!heroTitle || !heroDesc) return; // safety check
 
             const carouselData = [
                 { title: "Find Your Perfect Home <br class='hidden sm:block'>or Investment", desc: "Discover premium builder floors, high-ROI apartments, and futuristic smart homes across NCR." },
@@ -772,7 +778,6 @@
             setInterval(() => {
                 let nextIndex = (currentIndex + 1) % totalSlides;
 
-                // hardware accelerated transform for text
                 heroTitle.style.opacity = '0';
                 heroTitle.style.transform = 'translateY(10px) translate3d(0,0,0)';
                 heroDesc.style.opacity = '0';
